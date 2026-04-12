@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asha Furniture — Crafted for Living</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FDFAF6;
+  --surface: #F7F1E8;
+  --brown-deep: #2C1A0E;
+  --brown-mid: #5C3D22;
+  --brown-warm: #8B5E3C;
+  --brown-light: #C4956A;
+  --gold: #C8922A;
+  --gold-light: #E8C87A;
+  --cream: #F5EDD8;
+  --cream-dark: #E8D8B8;
+  --text: #1A0F08;
+  --text-muted: #7A6050;
+  --border: rgba(140,90,60,0.15);
+  --border-strong: rgba(140,90,60,0.3);
+  --white: #FFFFFF;
+  --radius: 4px;
+  --radius-lg: 8px;
+  --shadow: 0 2px 20px rgba(44,26,14,0.08);
+  --shadow-lg: 0 8px 40px rgba(44,26,14,0.14);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--brown-light);border-radius:2px;}
+
+/* ─── UTILITY ─── */
+.hidden{display:none!important;}
+.page{display:none;}
+.page.active{display:block;}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+
+/* ─── TOP BAR ─── */
+.topbar{background:var(--brown-deep);color:var(--cream);font-size:12px;padding:8px 0;text-align:center;letter-spacing:0.5px;}
+.topbar span{margin:0 16px;}
+
+/* ─── NAVBAR ─── */
+.navbar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;padding:0 32px;}
+.navbar-inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1200px;margin:0 auto;}
+.logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer;text-decoration:none;}
+.logo-icon{width:46px;height:46px;position:relative;}
+.logo-text{display:flex;flex-direction:column;}
+.logo-name{font-family:var(--font-display);font-size:26px;font-weight:600;color:var(--brown-deep);letter-spacing:2px;line-height:1;}
+.logo-tagline{font-size:9px;letter-spacing:4px;color:var(--brown-warm);text-transform:uppercase;margin-top:2px;}
+.nav-menu{display:flex;align-items:center;gap:4px;}
+.nav-item{position:relative;}
+.nav-link{font-size:13px;color:var(--text-muted);padding:8px 14px;cursor:pointer;border-radius:var(--radius);transition:color var(--transition);white-space:nowrap;display:flex;align-items:center;gap:4px;}
+.nav-link:hover,.nav-link.active{color:var(--brown-warm);}
+.nav-link .arrow{font-size:9px;transition:transform var(--transition);}
+.nav-item:hover .arrow{transform:rotate(180deg);}
+.dropdown{position:absolute;top:calc(100% + 8px);left:0;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:8px;min-width:200px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transform:translateY(-8px);transition:all var(--transition);z-index:100;}
+.nav-item:hover .dropdown{opacity:1;pointer-events:all;transform:translateY(0);}
+.dropdown a{display:block;padding:8px 12px;font-size:13px;color:var(--text-muted);border-radius:var(--radius);cursor:pointer;transition:all var(--transition);}
+.dropdown a:hover{background:var(--surface);color:var(--brown-warm);}
+.nav-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{width:38px;height:38px;border:1px solid var(--border);background:transparent;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all var(--transition);position:relative;}
+.icon-btn:hover{border-color:var(--brown-warm);color:var(--brown-warm);}
+.cart-badge{position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--white);font-size:9px;font-weight:500;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:var(--radius);font-size:13px;font-weight:500;cursor:pointer;transition:all var(--transition);border:1px solid transparent;text-decoration:none;font-family:var(--font-body);}
+.btn-primary{background:var(--brown-deep);color:var(--cream);border-color:var(--brown-deep);}
+.btn-primary:hover{background:var(--brown-mid);}
+.btn-outline{background:transparent;color:var(--brown-deep);border-color:var(--brown-deep);}
+.btn-outline:hover{background:var(--brown-deep);color:var(--cream);}
+.btn-gold{background:var(--gold);color:var(--white);border-color:var(--gold);}
+.btn-gold:hover{background:var(--brown-warm);}
+
+/* ─── HERO ─── */
+.hero{min-height:88vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-left{padding:80px 64px;display:flex;flex-direction:column;justify-content:center;background:var(--white);}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:24px;}
+.eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.eyebrow-text{font-size:11px;letter-spacing:4px;color:var(--brown-warm);text-transform:uppercase;}
+.hero-title{font-family:var(--font-display);font-size:clamp(52px,5vw,72px);font-weight:400;line-height:1.05;color:var(--brown-deep);margin-bottom:24px;}
+.hero-title em{font-style:italic;color:var(--brown-warm);}
+.hero-sub{font-size:15px;color:var(--text-muted);line-height:1.8;max-width:400px;margin-bottom:40px;}
+.hero-cta{display:flex;gap:12px;margin-bottom:48px;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:40px;border-top:1px solid var(--border);}
+.hero-stat-num{font-family:var(--font-display);font-size:32px;font-weight:500;color:var(--brown-deep);}
+.hero-stat-label{font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-top:2px;}
+.hero-right{background:var(--cream);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-img-area{position:relative;width:100%;height:100%;min-height:600px;}
+.hero-shape{position:absolute;border-radius:50%;background:var(--cream-dark);}
+.hero-shape-1{width:400px;height:400px;top:50%;left:50%;transform:translate(-50%,-50%);}
+.hero-shape-2{width:240px;height:240px;top:10%;right:10%;background:var(--border);}
+.hero-furniture-art{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+.hero-badge{position:absolute;bottom:40px;right:40px;background:var(--brown-deep);color:var(--cream);padding:16px 20px;border-radius:var(--radius-lg);}
+.hero-badge-num{font-family:var(--font-display);font-size:28px;font-weight:500;color:var(--gold-light);}
+.hero-badge-text{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--cream);opacity:0.8;}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{background:var(--brown-deep);padding:14px 0;overflow:hidden;}
+.marquee-track{display:flex;gap:0;animation:marquee 28s linear infinite;width:max-content;}
+.marquee-item{display:flex;align-items:center;gap:32px;padding:0 24px;font-size:11px;letter-spacing:3px;color:var(--gold-light);text-transform:uppercase;white-space:nowrap;}
+.marquee-dot{width:4px;height:4px;border-radius:50%;background:var(--brown-warm);}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SECTION ─── */
+.section{padding:80px 0;}
+.section-alt{background:var(--surface);}
+.sec-label{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.sec-label-line{width:32px;height:1px;background:var(--gold);}
+.sec-label-text{font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;}
+.sec-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;}
+.sec-title{font-family:var(--font-display);font-size:clamp(32px,3.5vw,44px);font-weight:400;color:var(--brown-deep);line-height:1.1;}
+.sec-title em{font-style:italic;color:var(--brown-warm);}
+
+/* ─── CATEGORIES ─── */
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.cat-card{border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;background:var(--white);border:1px solid var(--border);transition:all var(--transition);position:relative;}
+.cat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--brown-light);}
+.cat-img-wrap{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.cat-card:nth-child(1) .cat-img-wrap{background:#F0E6DC;}
+.cat-card:nth-child(2) .cat-img-wrap{background:#E8DDD4;}
+.cat-card:nth-child(3) .cat-img-wrap{background:#F5EDE4;}
+.cat-card:nth-child(4) .cat-img-wrap{background:#EDE3D8;}
+.cat-card:nth-child(5) .cat-img-wrap{background:#E4EDE4;}
+.cat-card:nth-child(6) .cat-img-wrap{background:#EDE8E0;}
+.cat-card:nth-child(7) .cat-img-wrap{background:#F0EAF5;}
+.cat-card:nth-child(8) .cat-img-wrap{background:#F5F0E8;}
+.cat-icon{font-size:52px;transition:transform var(--transition);}
+.cat-card:hover .cat-icon{transform:scale(1.1);}
+.cat-body{padding:16px 18px;}
+.cat-name{font-size:15px;font-weight:500;color:var(--brown-deep);}
+.cat-count{font-size:12px;color:var(--text-muted);margin-top:3px;}
+.cat-arrow{position:absolute;bottom:16px;right:18px;width:28px;height:28px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--brown-warm);transition:all var(--transition);}
+.cat-card:hover .cat-arrow{background:var(--brown-deep);color:var(--cream);}
+
+/* ─── PRODUCTS ─── */
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.prod-grid-4{grid-template-columns:repeat(4,1fr);}
+.prod-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all var(--transition);}
+.prod-card:hover{box-shadow:var(--shadow-lg);border-color:var(--brown-light);transform:translateY(-2px);}
+.prod-img-wrap{height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.prod-badge-wrap{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;}
+.prod-badge{font-size:9px;letter-spacing:1px;padding:4px 10px;border-radius:3px;font-weight:500;text-transform:uppercase;}
+.badge-best{background:var(--brown-deep);color:var(--cream);}
+.badge-new{background:var(--gold);color:var(--white);}
+.badge-sale{background:#C0392B;color:var(--white);}
+.prod-actions{position:absolute;top:12px;right:12px;display:flex;flex-direction:column;gap:6px;opacity:0;transform:translateX(8px);transition:all var(--transition);}
+.prod-card:hover .prod-actions{opacity:1;transform:translateX(0);}
+.prod-action-btn{width:34px;height:34px;border-radius:50%;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--text-muted);transition:all var(--transition);}
+.prod-action-btn:hover{background:var(--brown-deep);color:var(--cream);border-color:var(--brown-deep);}
+.prod-body{padding:18px;}
+.prod-category{font-size:10px;letter-spacing:2px;color:var(--brown-light);text-transform:uppercase;margin-bottom:6px;}
+.prod-name{font-size:15px;font-weight:500;color:var(--brown-deep);margin-bottom:4px;}
+.prod-mat{font-size:12px;color:var(--text-muted);}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);}
+.prod-price{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--brown-deep);}
+.prod-price small{font-size:12px;color:var(--text-muted);text-decoration:line-through;margin-left:6px;font-family:var(--font-body);}
+.btn-addcart{background:var(--brown-deep);color:var(--cream);border:none;border-radius:var(--radius);padding:8px 14px;font-size:11px;font-weight:500;cursor:pointer;transition:all var(--transition);letter-spacing:0.5px;font-family:var(--font-body);}
+.btn-addcart:hover{background:var(--brown-warm);}
+.btn-addcart.added{background:var(--gold);}
+
+/* ─── PROMO BANNER ─── */
+.promo-banner{background:var(--brown-deep);border-radius:12px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;margin:0 0 80px;}
+.promo-left{padding:56px 56px;}
+.promo-eyebrow{font-size:10px;letter-spacing:4px;color:var(--gold-light);text-transform:uppercase;margin-bottom:16px;}
+.promo-title{font-family:var(--font-display);font-size:40px;color:var(--cream);line-height:1.1;margin-bottom:16px;}
+.promo-desc{font-size:14px;color:rgba(245,237,216,0.7);line-height:1.7;margin-bottom:32px;}
+.promo-right{background:var(--brown-mid);display:flex;align-items:center;justify-content:center;padding:40px;}
+
+/* ─── WHY US ─── */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.why-card{text-align:center;padding:32px 20px;}
+.why-icon{width:56px;height:56px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 20px;}
+.why-title{font-size:15px;font-weight:500;color:var(--brown-deep);margin-bottom:8px;}
+.why-desc{font-size:13px;color:var(--text-muted);line-height:1.6;}
+
+/* ─── TESTIMONIALS ─── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.testi-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;}
+.stars{color:var(--gold);font-size:13px;margin-bottom:14px;}
+.testi-text{font-family:var(--font-display);font-size:17px;font-style:italic;color:var(--brown-deep);line-height:1.6;margin-bottom:20px;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--brown-warm);}
+.author-name{font-size:13px;font-weight:500;color:var(--brown-deep);}
+.author-loc{font-size:11px;color:var(--text-muted);}
+
+/* ─── NEWSLETTER ─── */
+.newsletter{background:var(--cream);border-radius:12px;padding:56px;text-align:center;}
+.newsletter-title{font-family:var(--font-display);font-size:36px;color:var(--brown-deep);margin-bottom:12px;}
+.newsletter-sub{font-size:14px;color:var(--text-muted);margin-bottom:28px;}
+.newsletter-form{display:flex;gap:10px;max-width:420px;margin:0 auto;}
+.newsletter-input{flex:1;padding:12px 16px;border:1px solid var(--border-strong);border-radius:var(--radius);background:var(--white);font-family:var(--font-body);font-size:14px;color:var(--text);outline:none;}
+.newsletter-input:focus{border-color:var(--brown-warm);}
+
+/* ─── FOOTER ─── */
+footer{background:var(--brown-deep);color:var(--cream);padding:64px 0 0;}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;max-width:1200px;margin:0 auto;padding:0 32px 48px;}
+.footer-brand-name{font-family:var(--font-display);font-size:24px;font-weight:500;letter-spacing:2px;color:var(--cream);margin-bottom:4px;}
+.footer-brand-tag{font-size:10px;letter-spacing:3px;color:var(--brown-light);text-transform:uppercase;margin-bottom:20px;}
+.footer-about{font-size:13px;color:rgba(245,237,216,0.65);line-height:1.7;margin-bottom:24px;}
+.footer-contacts{display:flex;flex-direction:column;gap:10px;}
+.footer-contact-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:rgba(245,237,216,0.75);}
+.footer-contact-icon{font-size:14px;margin-top:1px;flex-shrink:0;}
+.footer-contact-text a{color:var(--brown-light);text-decoration:none;}
+.footer-contact-text a:hover{color:var(--gold-light);}
+.footer-col-title{font-size:10px;letter-spacing:3px;color:var(--gold-light);text-transform:uppercase;margin-bottom:20px;}
+.footer-links{display:flex;flex-direction:column;gap:10px;}
+.footer-link{font-size:13px;color:rgba(245,237,216,0.65);cursor:pointer;transition:color var(--transition);}
+.footer-link:hover{color:var(--gold-light);}
+.social-row{display:flex;gap:8px;margin-top:20px;}
+.social-btn{width:36px;height:36px;border:1px solid rgba(245,237,216,0.2);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition);font-size:14px;color:rgba(245,237,216,0.6);}
+.social-btn:hover{background:var(--brown-warm);border-color:var(--brown-warm);color:var(--white);}
+.footer-bottom{border-top:1px solid rgba(245,237,216,0.1);padding:20px 32px;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:12px;color:rgba(245,237,216,0.4);}
+
+/* ─── CATEGORY PAGE ─── */
+.cat-page-hero{background:var(--cream);padding:56px 0 0;}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-muted);margin-bottom:20px;}
+.breadcrumb span{cursor:pointer;}
+.breadcrumb span:hover{color:var(--brown-warm);}
+.breadcrumb-sep{color:var(--border-strong);}
+.cat-page-title{font-family:var(--font-display);font-size:clamp(36px,4vw,52px);font-weight:400;color:var(--brown-deep);}
+.cat-page-desc{font-size:14px;color:var(--text-muted);max-width:560px;margin:12px 0 0;line-height:1.7;}
+.subcat-strip-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:72px;z-index:50;}
+.subcat-strip{display:flex;gap:4px;padding:16px 32px;max-width:1200px;margin:0 auto;overflow-x:auto;}
+.subcat-pill{border:1px solid var(--border);background:var(--white);border-radius:20px;padding:7px 18px;font-size:12px;cursor:pointer;white-space:nowrap;transition:all var(--transition);color:var(--text-muted);}
+.subcat-pill:hover,.subcat-pill.active{background:var(--brown-deep);color:var(--cream);border-color:var(--brown-deep);}
+.filter-sort-bar{display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid var(--border);margin-bottom:32px;}
+.filter-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.filter-chip{border:1px solid var(--border);background:var(--white);border-radius:var(--radius);padding:6px 14px;font-size:12px;cursor:pointer;transition:all var(--transition);color:var(--text-muted);}
+.filter-chip:hover,.filter-chip.active{border-color:var(--brown-warm);color:var(--brown-warm);}
+.sort-wrap{display:flex;align-items:center;gap:8px;}
+.sort-label{font-size:12px;color:var(--text-muted);}
+.sort-sel{border:1px solid var(--border);background:var(--white);border-radius:var(--radius);padding:7px 12px;font-size:12px;color:var(--text);cursor:pointer;font-family:var(--font-body);}
+.cat-page-layout{padding:40px 0 80px;}
+.product-count{font-size:13px;color:var(--text-muted);margin-bottom:24px;}
+
+/* ─── PRODUCT DETAIL ─── */
+.product-detail-wrap{padding:48px 0 80px;}
+.product-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.product-gallery{border-radius:var(--radius-lg);overflow:hidden;background:var(--cream);height:520px;display:flex;align-items:center;justify-content:center;font-size:120px;}
+.product-info-side{}
+.product-info-cat{font-size:10px;letter-spacing:3px;color:var(--brown-light);text-transform:uppercase;margin-bottom:12px;}
+.product-info-title{font-family:var(--font-display);font-size:clamp(28px,3vw,40px);font-weight:400;color:var(--brown-deep);line-height:1.15;margin-bottom:12px;}
+.product-rating{display:flex;align-items:center;gap:8px;margin-bottom:20px;}
+.product-price-row{display:flex;align-items:baseline;gap:12px;margin-bottom:24px;}
+.product-price-main{font-family:var(--font-display);font-size:36px;font-weight:500;color:var(--brown-deep);}
+.product-price-old{font-size:18px;color:var(--text-muted);text-decoration:line-through;}
+.product-desc{font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;}
+.product-meta{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;padding:20px;background:var(--surface);border-radius:var(--radius);}
+.product-meta-row{display:flex;gap:8px;font-size:13px;}
+.meta-key{color:var(--text-muted);min-width:100px;}
+.meta-val{color:var(--brown-deep);font-weight:500;}
+.qty-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.qty-label{font-size:13px;color:var(--text-muted);}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.qty-btn{width:36px;height:36px;background:var(--surface);border:none;cursor:pointer;font-size:16px;color:var(--brown-deep);transition:background var(--transition);}
+.qty-btn:hover{background:var(--cream-dark);}
+.qty-num{width:48px;text-align:center;font-size:14px;border:none;background:var(--white);color:var(--brown-deep);font-family:var(--font-body);}
+.product-cta{display:flex;gap:10px;}
+.btn-addcart-lg{background:var(--brown-deep);color:var(--cream);border:none;border-radius:var(--radius);padding:14px 32px;font-size:14px;font-weight:500;cursor:pointer;flex:1;transition:all var(--transition);font-family:var(--font-body);}
+.btn-addcart-lg:hover{background:var(--brown-warm);}
+.btn-wishlist{width:48px;height:48px;border:1px solid var(--border);background:transparent;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:all var(--transition);}
+.btn-wishlist:hover{border-color:var(--gold);color:var(--gold);}
+.guarantee-strip{display:flex;gap:16px;margin-top:28px;padding-top:28px;border-top:1px solid var(--border);}
+.guarantee-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-muted);}
+.guarantee-icon{font-size:16px;}
+
+/* ─── CART DRAWER ─── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:2000;opacity:0;pointer-events:none;transition:opacity var(--transition);}
+.overlay.open{opacity:1;pointer-events:all;}
+.cart-drawer{position:fixed;right:0;top:0;height:100%;width:420px;background:var(--white);z-index:2001;transform:translateX(100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;}
+.cart-drawer.open{transform:translateX(0);}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:24px 24px 20px;border-bottom:1px solid var(--border);}
+.cart-title{font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--brown-deep);}
+.cart-close{background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--text-muted);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius);}
+.cart-close:hover{background:var(--surface);}
+.cart-items{flex:1;overflow-y:auto;padding:20px 24px;}
+.cart-empty{text-align:center;padding:60px 20px;}
+.cart-empty-icon{font-size:48px;margin-bottom:16px;}
+.cart-empty-text{font-size:15px;color:var(--text-muted);margin-bottom:20px;}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border);}
+.cart-item-img{width:72px;height:72px;border-radius:var(--radius);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-size:14px;font-weight:500;color:var(--brown-deep);}
+.cart-item-mat{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.cart-item-price{font-size:14px;font-weight:500;color:var(--brown-warm);margin-top:6px;}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:8px;}
+.cart-qty-btn{width:24px;height:24px;border:1px solid var(--border);background:transparent;border-radius:3px;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.cart-qty-num{font-size:13px;color:var(--brown-deep);min-width:20px;text-align:center;}
+.cart-item-remove{background:transparent;border:none;font-size:16px;cursor:pointer;color:var(--text-muted);padding:4px;}
+.cart-item-remove:hover{color:#c0392b;}
+.cart-footer{padding:20px 24px;border-top:1px solid var(--border);}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:16px;}
+.cart-subtotal-label{font-size:14px;color:var(--text-muted);}
+.cart-subtotal-val{font-family:var(--font-display);font-size:22px;font-weight:500;color:var(--brown-deep);}
+.cart-checkout-btn{width:100%;padding:14px;background:var(--brown-deep);color:var(--cream);border:none;border-radius:var(--radius);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:background var(--transition);margin-bottom:10px;}
+.cart-checkout-btn:hover{background:var(--brown-warm);}
+.cart-continue-btn{width:100%;padding:12px;background:transparent;color:var(--brown-deep);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;cursor:pointer;font-family:var(--font-body);transition:all var(--transition);}
+.cart-continue-btn:hover{border-color:var(--brown-warm);}
+
+/* ─── CHECKOUT PAGE ─── */
+.checkout-wrap{padding:48px 0 80px;}
+.checkout-grid{display:grid;grid-template-columns:1fr 380px;gap:48px;align-items:start;}
+.checkout-form-section{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;}
+.checkout-section-title{font-family:var(--font-display);font-size:22px;color:var(--brown-deep);margin-bottom:24px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-row-full{margin-bottom:16px;}
+.form-label{font-size:12px;color:var(--text-muted);margin-bottom:6px;display:block;letter-spacing:0.5px;}
+.form-input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color var(--transition);}
+.form-input:focus{border-color:var(--brown-warm);}
+.form-select{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--white);outline:none;cursor:pointer;}
+.form-textarea{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--text);background:var(--white);outline:none;resize:vertical;min-height:80px;transition:border-color var(--transition);}
+.form-textarea:focus{border-color:var(--brown-warm);}
+.payment-options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.payment-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:all var(--transition);}
+.payment-opt.selected{border-color:var(--brown-warm);background:var(--cream);}
+.payment-opt input{accent-color:var(--brown-warm);}
+.payment-opt-label{font-size:14px;color:var(--brown-deep);font-weight:500;}
+.payment-opt-sub{font-size:12px;color:var(--text-muted);}
+.order-summary-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;position:sticky;top:100px;}
+.order-summary-title{font-family:var(--font-display);font-size:20px;color:var(--brown-deep);margin-bottom:20px;}
+.order-items-list{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.order-item{display:flex;gap:12px;align-items:center;}
+.order-item-img{width:52px;height:52px;border-radius:var(--radius);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.order-item-name{font-size:13px;font-weight:500;color:var(--brown-deep);}
+.order-item-qty{font-size:11px;color:var(--text-muted);}
+.order-item-price{margin-left:auto;font-size:13px;font-weight:500;color:var(--brown-deep);}
+.order-divider{border:none;border-top:1px solid var(--border);margin:16px 0;}
+.order-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px;}
+.order-line-label{color:var(--text-muted);}
+.order-line-val{color:var(--brown-deep);}
+.order-total-line{display:flex;justify-content:space-between;font-size:16px;font-weight:500;padding-top:12px;border-top:1px solid var(--border);margin-top:8px;}
+.order-total-val{font-family:var(--font-display);font-size:22px;color:var(--brown-deep);}
+.place-order-btn{width:100%;padding:14px;background:var(--gold);color:var(--white);border:none;border-radius:var(--radius);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--font-body);transition:all var(--transition);margin-top:20px;letter-spacing:0.5px;}
+.place-order-btn:hover{background:var(--brown-warm);}
+.place-order-btn:disabled{opacity:0.6;cursor:not-allowed;}
+
+/* ─── ORDER SUCCESS ─── */
+.order-success-wrap{text-align:center;padding:80px 32px;}
+.success-icon{width:80px;height:80px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 24px;}
+.success-title{font-family:var(--font-display);font-size:40px;color:var(--brown-deep);margin-bottom:12px;}
+.success-sub{font-size:15px;color:var(--text-muted);line-height:1.7;max-width:480px;margin:0 auto 32px;}
+.success-order-num{display:inline-block;background:var(--cream);color:var(--brown-deep);font-weight:500;padding:10px 24px;border-radius:var(--radius);font-size:15px;margin-bottom:32px;border:1px solid var(--border);}
+
+/* ─── ABOUT PAGE ─── */
+.about-hero{background:var(--cream);padding:80px 0;}
+.about-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.about-hero-title{font-family:var(--font-display);font-size:clamp(40px,4vw,60px);color:var(--brown-deep);line-height:1.05;margin-bottom:20px;}
+.about-story{font-size:15px;color:var(--text-muted);line-height:1.8;}
+.about-img-mock{background:var(--cream-dark);border-radius:var(--radius-lg);height:400px;display:flex;align-items:center;justify-content:center;font-size:80px;}
+.timeline{padding:80px 0;}
+.timeline-items{display:flex;flex-direction:column;gap:0;max-width:640px;margin:0 auto;}
+.timeline-item{display:flex;gap:24px;padding:0 0 40px;}
+.timeline-dot-col{display:flex;flex-direction:column;align-items:center;}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--gold);border:3px solid var(--cream-dark);flex-shrink:0;margin-top:4px;}
+.timeline-line{width:1px;flex:1;background:var(--border);margin-top:4px;}
+.timeline-year{font-family:var(--font-display);font-size:18px;font-weight:500;color:var(--brown-warm);margin-bottom:6px;}
+.timeline-text{font-size:14px;color:var(--text-muted);line-height:1.7;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.team-card{text-align:center;}
+.team-photo{width:100%;height:200px;border-radius:var(--radius-lg);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:56px;margin-bottom:16px;}
+.team-name{font-size:15px;font-weight:500;color:var(--brown-deep);}
+.team-role{font-size:12px;color:var(--text-muted);margin-top:3px;}
+
+/* ─── CONTACT PAGE ─── */
+.contact-wrap{padding:64px 0 80px;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+.contact-info-title{font-family:var(--font-display);font-size:40px;color:var(--brown-deep);margin-bottom:16px;}
+.contact-desc{font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:36px;}
+.contact-details{display:flex;flex-direction:column;gap:20px;margin-bottom:36px;}
+.contact-detail{display:flex;gap:14px;align-items:flex-start;}
+.contact-detail-icon{width:42px;height:42px;border-radius:var(--radius);background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.contact-detail-label{font-size:12px;color:var(--text-muted);margin-bottom:3px;}
+.contact-detail-val{font-size:14px;color:var(--brown-deep);font-weight:500;}
+.contact-detail-val a{color:var(--brown-warm);text-decoration:none;}
+.contact-form{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:36px;}
+.showrooms-section{padding:64px 0;}
+.showroom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.showroom-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;}
+.showroom-name{font-size:16px;font-weight:500;color:var(--brown-deep);margin-bottom:8px;}
+.showroom-addr{font-size:13px;color:var(--text-muted);line-height:1.6;}
+.showroom-hours{font-size:12px;color:var(--brown-warm);margin-top:10px;}
+
+/* ─── SEARCH OVERLAY ─── */
+.search-overlay{position:fixed;inset:0;background:rgba(253,250,246,0.96);z-index:3000;display:flex;flex-direction:column;align-items:center;padding-top:120px;opacity:0;pointer-events:none;transition:opacity var(--transition);}
+.search-overlay.open{opacity:1;pointer-events:all;}
+.search-input-wrap{display:flex;align-items:center;gap:16px;border-bottom:2px solid var(--brown-deep);padding-bottom:12px;width:100%;max-width:600px;margin-bottom:40px;}
+.search-input{flex:1;background:transparent;border:none;font-family:var(--font-display);font-size:32px;color:var(--brown-deep);outline:none;}
+.search-input::placeholder{color:var(--border-strong);}
+.search-close{background:transparent;border:none;font-size:24px;cursor:pointer;color:var(--text-muted);}
+.search-suggestions{font-size:12px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
+.search-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.search-tag{border:1px solid var(--border);border-radius:20px;padding:7px 16px;font-size:13px;cursor:pointer;color:var(--text-muted);transition:all var(--transition);}
+.search-tag:hover{border-color:var(--brown-warm);color:var(--brown-warm);}
+
+/* ─── TOAST ─── */
+.toast{position:fixed;bottom:32px;right:32px;background:var(--brown-deep);color:var(--cream);padding:14px 20px;border-radius:var(--radius-lg);font-size:13px;z-index:5000;transform:translateY(100px);opacity:0;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);display:flex;align-items:center;gap:10px;max-width:320px;box-shadow:var(--shadow-lg);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-icon{font-size:18px;}
+
+/* ─── LOADING ─── */
+.loading-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;transition:opacity 0.6s ease;}
+.loading-logo{font-family:var(--font-display);font-size:48px;font-weight:400;color:var(--brown-deep);letter-spacing:4px;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.loading-bar-wrap{width:200px;height:2px;background:var(--border);}
+.loading-bar{height:100%;background:var(--gold);animation:load 1.2s ease forwards;}
+@keyframes load{0%{width:0}100%{width:100%}}
+
+/* ─── FAQ PAGE ─── */
+.faq-wrap{padding:64px 0 80px;max-width:760px;margin:0 auto;}
+.faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
+.faq-question{display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-size:15px;font-weight:500;color:var(--brown-deep);}
+.faq-answer{font-size:14px;color:var(--text-muted);line-height:1.7;margin-top:12px;display:none;}
+.faq-answer.open{display:block;}
+.faq-icon{font-size:18px;color:var(--brown-light);transition:transform var(--transition);}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-logo">ASHA</div>
+  <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div style="width:100%;max-width:600px;padding:0 32px;">
+    <div class="search-input-wrap">
+      <span style="font-size:20px;color:var(--brown-light);">&#128269;</span>
+      <input class="search-input" placeholder="Search furniture..." id="searchInput">
+      <button class="search-close" onclick="closeSearch()">&#10005;</button>
+    </div>
+    <div class="search-suggestions">Popular searches</div>
+    <div class="search-tags">
+      <span class="search-tag" onclick="doSearch('Sofa')">Sofa</span>
+      <span class="search-tag" onclick="doSearch('Dining Table')">Dining Table</span>
+      <span class="search-tag" onclick="doSearch('Wardrobe')">Wardrobe</span>
+      <span class="search-tag" onclick="doSearch('Office Chair')">Office Chair</span>
+      <span class="search-tag" onclick="doSearch('Bed Frame')">Bed Frame</span>
+      <span class="search-tag" onclick="doSearch('Coffee Table')">Coffee Table</span>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <div class="cart-title">Your Cart</div>
+    <button class="cart-close" onclick="closeCart()">&#10005;</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter"></div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon">&#10003;</span>
+  <span id="toastMsg">Added to cart!</span>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>&#128222; +880 1700-123456</span>
+  <span>&#9993; info@ashafurniture.com.bd</span>
+  <span>&#128205; Showrooms in Dhaka, Chittagong & Sylhet</span>
+  <span>&#9997; Free Delivery on orders over ৳10,000</span>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="logo-wrap" onclick="showPage('home')">
+      <svg class="logo-icon" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="46" height="46" rx="8" fill="#2C1A0E"/>
+        <path d="M8 32 L14 18 L23 28 L32 18 L38 32" stroke="#C8922A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M6 33 L40 33" stroke="#C8922A" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="23" cy="13" r="3" fill="#C4956A"/>
+        <path d="M14 33 L14 38 M32 33 L32 38" stroke="#8B5E3C" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div class="logo-text">
+        <span class="logo-name">ASHA</span>
+        <span class="logo-tagline">Furniture</span>
+      </div>
+    </a>
+
+    <nav class="nav-menu">
+      <div class="nav-item">
+        <span class="nav-link" onclick="showPage('home')">Home</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showCat('living','All')">Living Room <span class="arrow">&#9660;</span></span>
+        <div class="dropdown">
+          <a onclick="showCat('living','All')">All Living Room</a>
+          <a onclick="showCat('living','Sofas & Sectionals')">Sofas & Sectionals</a>
+          <a onclick="showCat('living','Coffee Tables')">Coffee Tables</a>
+          <a onclick="showCat('living','TV Units')">TV Units</a>
+          <a onclick="showCat('living','Accent Chairs')">Accent Chairs</a>
+          <a onclick="showCat('living','Rugs & Carpets')">Rugs & Carpets</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showCat('bedroom','All')">Bedroom <span class="arrow">&#9660;</span></span>
+        <div class="dropdown">
+          <a onclick="showCat('bedroom','All')">All Bedroom</a>
+          <a onclick="showCat('bedroom','Beds & Frames')">Beds & Frames</a>
+          <a onclick="showCat('bedroom','Wardrobes')">Wardrobes</a>
+          <a onclick="showCat('bedroom','Dressers')">Dressers</a>
+          <a onclick="showCat('bedroom','Nightstands')">Nightstands</a>
+          <a onclick="showCat('bedroom','Mattresses')">Mattresses</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showCat('dining','All')">Dining <span class="arrow">&#9660;</span></span>
+        <div class="dropdown">
+          <a onclick="showCat('dining','All')">All Dining</a>
+          <a onclick="showCat('dining','Dining Tables')">Dining Tables</a>
+          <a onclick="showCat('dining','Dining Chairs')">Dining Chairs</a>
+          <a onclick="showCat('dining','Bar Stools')">Bar Stools</a>
+          <a onclick="showCat('dining','Sideboards')">Sideboards</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showCat('office','All')">Office <span class="arrow">&#9660;</span></span>
+        <div class="dropdown">
+          <a onclick="showCat('office','All')">All Office</a>
+          <a onclick="showCat('office','Desks')">Desks</a>
+          <a onclick="showCat('office','Office Chairs')">Office Chairs</a>
+          <a onclick="showCat('office','Bookshelves')">Bookshelves</a>
+          <a onclick="showCat('office','Filing Cabinets')">Filing Cabinets</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showCat('outdoor','All')">More <span class="arrow">&#9660;</span></span>
+        <div class="dropdown">
+          <a onclick="showCat('outdoor','All')">Outdoor</a>
+          <a onclick="showCat('storage','All')">Storage</a>
+          <a onclick="showCat('kids','All')">Kids Room</a>
+          <a onclick="showCat('decor','All')">Decor & Accessories</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showPage('about')">About</span>
+      </div>
+      <div class="nav-item">
+        <span class="nav-link" onclick="showPage('contact')">Contact</span>
+      </div>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="openSearch()" title="Search">&#128269;</button>
+      <button class="icon-btn" onclick="openCart()" title="Cart">
+        &#128722;
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════
+  PAGE: HOME
+════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">New Arrivals 2026</span>
+      </div>
+      <h1 class="hero-title">Where every<br>room tells a<br><em>beautiful story</em></h1>
+      <p class="hero-sub">Handcrafted furniture built with the finest teak, walnut and sheesham — designed to bring warmth, elegance and lasting quality to every corner of your home.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="showCat('living','All')">Shop Collection</button>
+        <button class="btn btn-outline" onclick="showPage('about')">Our Craft</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="hero-stat-num">1,200+</div><div class="hero-stat-label">Products</div></div>
+        <div><div class="hero-stat-num">14K+</div><div class="hero-stat-label">Happy Homes</div></div>
+        <div><div class="hero-stat-num">18 yrs</div><div class="hero-stat-label">Experience</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-area">
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+        <svg class="hero-furniture-art" width="420" height="340" viewBox="0 0 420 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Floor -->
+          <rect x="20" y="290" width="380" height="6" rx="3" fill="#C4956A" opacity="0.4"/>
+          <!-- Sofa body -->
+          <rect x="50" y="200" width="260" height="80" rx="10" fill="#5C3D22"/>
+          <!-- Sofa back -->
+          <rect x="50" y="165" width="260" height="50" rx="8" fill="#8B5E3C"/>
+          <!-- Sofa left arm -->
+          <rect x="38" y="175" width="28" height="90" rx="8" fill="#8B5E3C"/>
+          <!-- Sofa right arm -->
+          <rect x="294" y="175" width="28" height="90" rx="8" fill="#8B5E3C"/>
+          <!-- Sofa legs -->
+          <rect x="60" y="277" width="12" height="20" rx="3" fill="#3D2510"/>
+          <rect x="280" y="277" width="12" height="20" rx="3" fill="#3D2510"/>
+          <!-- Cushions -->
+          <rect x="58" y="210" width="76" height="60" rx="6" fill="#C4956A" opacity="0.7"/>
+          <rect x="142" y="210" width="76" height="60" rx="6" fill="#C4956A" opacity="0.7"/>
+          <rect x="226" y="210" width="74" height="60" rx="6" fill="#C4956A" opacity="0.7"/>
+          <!-- Throw pillow -->
+          <rect x="158" y="198" width="44" height="36" rx="5" fill="#E8C87A" opacity="0.8"/>
+          <!-- Side table -->
+          <rect x="340" y="228" width="52" height="52" rx="6" fill="#8B5E3C"/>
+          <rect x="336" y="224" width="60" height="10" rx="3" fill="#C4956A"/>
+          <rect x="348" y="278" width="8" height="18" rx="2" fill="#5C3D22"/>
+          <rect x="368" y="278" width="8" height="18" rx="2" fill="#5C3D22"/>
+          <!-- Lamp on table -->
+          <rect x="360" y="200" width="6" height="28" rx="2" fill="#C4956A" opacity="0.6"/>
+          <ellipse cx="363" cy="198" rx="16" ry="10" fill="#E8C87A" opacity="0.5"/>
+          <!-- Plant -->
+          <rect x="28" y="248" width="8" height="44" rx="2" fill="#5C3D22"/>
+          <ellipse cx="32" cy="245" rx="20" ry="24" fill="#3B6D11" opacity="0.6"/>
+          <ellipse cx="40" cy="235" rx="14" ry="18" fill="#3B6D11" opacity="0.5"/>
+          <!-- Picture frame on wall -->
+          <rect x="130" y="90" width="80" height="60" rx="4" fill="#E8D8B8"/>
+          <rect x="134" y="94" width="72" height="52" rx="2" fill="#C4956A" opacity="0.3"/>
+          <rect x="127" y="87" width="86" height="66" rx="5" fill="none" stroke="#8B5E3C" stroke-width="2.5"/>
+          <!-- Rug -->
+          <rect x="60" y="288" width="250" height="6" rx="2" fill="#8B5E3C" opacity="0.3"/>
+        </svg>
+        <div class="hero-badge">
+          <div class="hero-badge-num">30%</div>
+          <div class="hero-badge-text">Off Sale Now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee">
+      <div class="marquee-item">Solid Wood Craftsmanship<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Free Delivery in Dhaka<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Custom Orders Welcome<div class="marquee-dot"></div></div>
+      <div class="marquee-item">10-Year Warranty<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Eco-Friendly Materials<div class="marquee-dot"></div></div>
+      <div class="marquee-item">EMI Available<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Solid Wood Craftsmanship<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Free Delivery in Dhaka<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Custom Orders Welcome<div class="marquee-dot"></div></div>
+      <div class="marquee-item">10-Year Warranty<div class="marquee-dot"></div></div>
+      <div class="marquee-item">Eco-Friendly Materials<div class="marquee-dot"></div></div>
+      <div class="marquee-item">EMI Available<div class="marquee-dot"></div></div>
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div class="section">
+    <div class="container">
+      <div class="sec-label"><div class="sec-label-line"></div><span class="sec-label-text">Explore</span></div>
+      <div class="sec-header">
+        <h2 class="sec-title">Shop by <em>category</em></h2>
+        <a class="btn btn-outline" onclick="showCat('living','All')">View All</a>
+      </div>
+      <div class="cat-grid" id="homeCatGrid"></div>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <div class="section section-alt">
+    <div class="container">
+      <div class="sec-label"><div class="sec-label-line"></div><span class="sec-label-text">Handpicked</span></div>
+      <div class="sec-header">
+        <h2 class="sec-title">Featured <em>pieces</em></h2>
+        <a class="btn btn-outline" onclick="showCat('living','All')">Browse All</a>
+      </div>
+      <div class="prod-grid" id="featuredGrid"></div>
+    </div>
+  </div>
+
+  <!-- PROMO BANNER -->
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-left">
+        <p class="promo-eyebrow">Limited Offer — April 2026</p>
+        <h2 class="promo-title">Up to 30% off<br>Summer Collection</h2>
+        <p class="promo-desc">Refresh your space with hand-selected pieces at exceptional value. Premium teak and walnut collections now discounted for a limited time.</p>
+        <div style="display:flex;gap:10px;">
+          <button class="btn btn-gold" onclick="showCat('living','All')">Shop the Sale</button>
+          <button class="btn btn-outline" style="color:var(--cream);border-color:rgba(245,237,216,0.4);" onclick="showPage('contact')">Custom Order</button>
+        </div>
+      </div>
+      <div class="promo-right">
+        <svg width="260" height="200" viewBox="0 0 260 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="130" width="220" height="10" rx="4" fill="#8B5E3C"/>
+          <rect x="36" y="75" width="188" height="60" rx="8" fill="#5C3D22"/>
+          <rect x="36" y="64" width="188" height="24" rx="6" fill="#8B5E3C"/>
+          <rect x="24" y="140" width="16" height="40" rx="4" fill="#5C3D22"/>
+          <rect x="220" y="140" width="16" height="40" rx="4" fill="#5C3D22"/>
+          <rect x="96" y="20" width="68" height="96" rx="6" fill="#5C3D22"/>
+          <rect x="103" y="27" width="54" height="56" rx="4" fill="#3D2510"/>
+          <rect x="114" y="12" width="32" height="14" rx="4" fill="#3D2510"/>
+          <circle cx="58" cy="120" r="22" fill="#C8922A" opacity="0.25"/>
+          <circle cx="58" cy="120" r="14" fill="#C8922A" opacity="0.4"/>
+          <rect x="51" y="142" width="8" height="24" rx="3" fill="#8B5E3C"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section">
+    <div class="container">
+      <div class="sec-label"><div class="sec-label-line"></div><span class="sec-label-text">Why Asha</span></div>
+      <div class="sec-header"><h2 class="sec-title">Crafted with <em>purpose</em></h2></div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">&#127795;</div>
+          <div class="why-title">Sustainable Materials</div>
+          <div class="why-desc">Every piece uses ethically sourced solid wood from certified forests.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#9965;</div>
+          <div class="why-title">Master Craftsmanship</div>
+          <div class="why-desc">18+ years of heritage with skilled artisans dedicated to perfection.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#128666;</div>
+          <div class="why-title">White Glove Delivery</div>
+          <div class="why-desc">Free delivery and in-home assembly across Dhaka and major cities.</div>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">&#128737;</div>
+          <div class="why-title">10-Year Warranty</div>
+          <div class="why-desc">Every structural component backed by our decade-long quality guarantee.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW ARRIVALS -->
+  <div class="section section-alt">
+    <div class="container">
+      <div class="sec-label"><div class="sec-label-line"></div><span class="sec-label-text">Just In</span></div>
+      <div class="sec-header"><h2 class="sec-title">New <em>arrivals</em></h2><a class="btn btn-outline" onclick="showCat('bedroom','All')">See All New</a></div>
+      <div class="prod-grid prod-grid-4" id="newArrivalsGrid"></div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <div class="container">
+      <div class="sec-label"><div class="sec-label-line"></div><span class="sec-label-text">Reviews</span></div>
+      <div class="sec-header"><h2 class="sec-title">What our customers <em>say</em></h2></div>
+      <div class="testi-grid">
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testi-text">"The dining table has become the absolute centrepiece of our home. Quality is beyond anything we expected."</p><div class="testi-author"><div class="testi-avatar">RS</div><div><div class="author-name">Rafiya Sultana</div><div class="author-loc">Gulshan, Dhaka</div></div></div></div>
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testi-text">"Fast delivery, careful packaging, and our sofa is exactly as described. Asha has a lifelong customer in us."</p><div class="testi-author"><div class="testi-avatar">KI</div><div><div class="author-name">Karim Islam</div><div class="author-loc">Uttara, Dhaka</div></div></div></div>
+        <div class="testi-card"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="testi-text">"The custom wardrobe fit our room perfectly. The craftsmanship and attention to detail is truly exceptional."</p><div class="testi-author"><div class="testi-avatar">NA</div><div><div class="author-name">Nadia Ahmed</div><div class="author-loc">Dhanmondi, Dhaka</div></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="section section-alt">
+    <div class="container">
+      <div class="newsletter">
+        <h2 class="newsletter-title">Stay in the loop</h2>
+        <p class="newsletter-sub">Get new arrivals, exclusive offers and décor inspiration delivered to your inbox.</p>
+        <div class="newsletter-form">
+          <input class="newsletter-input" placeholder="Your email address" type="email">
+          <button class="btn btn-primary">Subscribe</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">ASHA FURNITURE</div>
+        <div class="footer-brand-tag">Crafted for Living</div>
+        <p class="footer-about">Crafting beautiful, lasting furniture for Bangladeshi homes since 2007. Every piece tells a story of artistry, comfort and thoughtful design.</p>
+        <div class="footer-contacts">
+          <div class="footer-contact-item"><span class="footer-contact-icon">&#128222;</span><div class="footer-contact-text"><a href="tel:+8801700123456">+880 1700-123456</a><br><a href="tel:+8801800654321">+880 1800-654321</a></div></div>
+          <div class="footer-contact-item"><span class="footer-contact-icon">&#9993;</span><div class="footer-contact-text"><a href="mailto:info@ashafurniture.com.bd">info@ashafurniture.com.bd</a><br><a href="mailto:orders@ashafurniture.com.bd">orders@ashafurniture.com.bd</a></div></div>
+          <div class="footer-contact-item"><span class="footer-contact-icon">&#128205;</span><div class="footer-contact-text">House 12, Road 4, Block B<br>Bashundhara R/A, Dhaka 1229</div></div>
+          <div class="footer-contact-item"><span class="footer-contact-icon">&#128337;</span><div class="footer-contact-text">Sat–Thu: 10:00am – 8:00pm<br>Friday: 3:00pm – 9:00pm</div></div>
+        </div>
+        <div class="social-row">
+          <div class="social-btn" title="Facebook" onclick="window.open('https://facebook.com/ashafurniturebd','_blank')">&#128100;</div>
+          <div class="social-btn" title="Instagram">&#128247;</div>
+          <div class="social-btn" title="WhatsApp" onclick="window.open('https://wa.me/8801700123456','_blank')">&#128172;</div>
+          <div class="social-btn" title="YouTube">&#9654;</div>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Shop</div>
+        <div class="footer-links">
+          <span class="footer-link" onclick="showCat('living','All')">Living Room</span>
+          <span class="footer-link" onclick="showCat('bedroom','All')">Bedroom</span>
+          <span class="footer-link" onclick="showCat('dining','All')">Dining</span>
+          <span class="footer-link" onclick="showCat('office','All')">Office</span>
+          <span class="footer-link" onclick="showCat('outdoor','All')">Outdoor</span>
+          <span class="footer-link" onclick="showCat('storage','All')">Storage</span>
+          <span class="footer-link" onclick="showCat('kids','All')">Kids Room</span>
+          <span class="footer-link" onclick="showCat('decor','All')">Decor</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Support</div>
+        <div class="footer-links">
+          <span class="footer-link" onclick="showPage('contact')">Track Order</span>
+          <span class="footer-link" onclick="showPage('faq')">Returns & Refunds</span>
+          <span class="footer-link" onclick="showPage('faq')">Care Guide</span>
+          <span class="footer-link" onclick="showPage('faq')">Warranty Policy</span>
+          <span class="footer-link" onclick="showPage('faq')">FAQ</span>
+          <span class="footer-link" onclick="showPage('contact')">Contact Us</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <div class="footer-links">
+          <span class="footer-link" onclick="showPage('about')">Our Story</span>
+          <span class="footer-link" onclick="showPage('about')">Showrooms</span>
+          <span class="footer-link">Careers</span>
+          <span class="footer-link">Blog</span>
+          <span class="footer-link">Press</span>
+          <span class="footer-link">Sustainability</span>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Asha Furniture Ltd. All rights reserved.</span>
+        <span class="footer-copy">Made with care in Bangladesh 🇧🇩 | Privacy Policy | Terms</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: CATEGORY
+════════════════════════════════════════════ -->
+<div id="page-category" class="page">
+  <div class="cat-page-hero" id="catPageHero">
+    <div class="container" style="padding-bottom:32px;">
+      <div class="breadcrumb" id="catBreadcrumb"></div>
+      <h1 class="cat-page-title" id="catPageTitle"></h1>
+      <p class="cat-page-desc" id="catPageDesc"></p>
+    </div>
+  </div>
+  <div class="subcat-strip-wrap">
+    <div class="subcat-strip" id="catSubcatStrip"></div>
+  </div>
+  <div class="cat-page-layout">
+    <div class="container">
+      <div class="filter-sort-bar">
+        <div class="filter-chips" id="filterChips"></div>
+        <div class="sort-wrap">
+          <span class="sort-label">Sort by:</span>
+          <select class="sort-sel" id="sortSel" onchange="applySortFilter()">
+            <option value="featured">Featured</option>
+            <option value="priceLow">Price: Low to High</option>
+            <option value="priceHigh">Price: High to Low</option>
+            <option value="newest">Newest</option>
+          </select>
+        </div>
+      </div>
+      <div class="product-count" id="productCount"></div>
+      <div class="prod-grid prod-grid-4" id="catProdGrid"></div>
+    </div>
+  </div>
+  <footer style="background:var(--brown-deep);color:var(--cream);padding:32px;">
+    <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:var(--font-display);font-size:20px;letter-spacing:2px;cursor:pointer;" onclick="showPage('home')">ASHA FURNITURE</span>
+      <span style="font-size:12px;color:rgba(245,237,216,0.5);">© 2026 Asha Furniture Ltd.</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: PRODUCT DETAIL
+════════════════════════════════════════════ -->
+<div id="page-product" class="page">
+  <div class="product-detail-wrap">
+    <div class="container">
+      <div class="breadcrumb" id="prodBreadcrumb"></div>
+      <div class="product-detail-grid">
+        <div class="product-gallery" id="prodGallery"></div>
+        <div class="product-info-side" id="prodInfoSide"></div>
+      </div>
+    </div>
+  </div>
+  <div class="section section-alt">
+    <div class="container">
+      <div class="sec-header"><h2 class="sec-title">You may also <em>like</em></h2></div>
+      <div class="prod-grid" id="relatedGrid"></div>
+    </div>
+  </div>
+  <footer style="background:var(--brown-deep);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;">
+    <span style="font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--cream);cursor:pointer;" onclick="showPage('home')">ASHA FURNITURE</span>
+    <span style="font-size:12px;color:rgba(245,237,216,0.5);">© 2026</span>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: CHECKOUT
+════════════════════════════════════════════ -->
+<div id="page-checkout" class="page">
+  <div class="checkout-wrap">
+    <div class="container">
+      <div class="breadcrumb" style="margin-bottom:32px;">
+        <span onclick="openCart()">Cart</span>
+        <span class="breadcrumb-sep">›</span>
+        <span style="color:var(--brown-deep);font-weight:500;">Checkout</span>
+      </div>
+      <div class="checkout-grid">
+        <div>
+          <div class="checkout-form-section" style="margin-bottom:20px;">
+            <div class="checkout-section-title">Delivery Information</div>
+            <div class="form-row">
+              <div><label class="form-label">First Name *</label><input class="form-input" id="co-fname" placeholder="Rafiya"></div>
+              <div><label class="form-label">Last Name *</label><input class="form-input" id="co-lname" placeholder="Sultana"></div>
+            </div>
+            <div class="form-row">
+              <div><label class="form-label">Phone *</label><input class="form-input" id="co-phone" placeholder="+880 17XX-XXXXXX"></div>
+              <div><label class="form-label">Email *</label><input class="form-input" id="co-email" placeholder="you@email.com"></div>
+            </div>
+            <div class="form-row-full"><label class="form-label">Full Address *</label><input class="form-input" id="co-address" placeholder="House no, Road, Area"></div>
+            <div class="form-row">
+              <div><label class="form-label">City *</label>
+                <select class="form-select" id="co-city">
+                  <option>Dhaka</option><option>Chittagong</option><option>Sylhet</option><option>Rajshahi</option><option>Khulna</option><option>Cumilla</option><option>Other</option>
+                </select>
+              </div>
+              <div><label class="form-label">District</label><input class="form-input" id="co-district" placeholder="District"></div>
+            </div>
+            <div class="form-row-full"><label class="form-label">Order Notes (optional)</label><textarea class="form-textarea" id="co-notes" placeholder="Any special instructions, floor number, preferred delivery time..."></textarea></div>
+          </div>
+
+          <div class="checkout-form-section">
+            <div class="checkout-section-title">Payment Method</div>
+            <div class="payment-options" id="paymentOpts">
+              <label class="payment-opt selected" onclick="selectPayment(this)">
+                <input type="radio" name="payment" value="COD" checked>
+                <div><div class="payment-opt-label">&#128181; Cash on Delivery</div><div class="payment-opt-sub">Pay when your furniture arrives</div></div>
+              </label>
+              <label class="payment-opt" onclick="selectPayment(this)">
+                <input type="radio" name="payment" value="bKash">
+                <div><div class="payment-opt-label">&#128247; bKash</div><div class="payment-opt-sub">Send payment to 01700-123456</div></div>
+              </label>
+              <label class="payment-opt" onclick="selectPayment(this)">
+                <input type="radio" name="payment" value="Nagad">
+                <div><div class="payment-opt-label">&#128178; Nagad</div><div class="payment-opt-sub">Send payment to 01700-123456</div></div>
+              </label>
+              <label class="payment-opt" onclick="selectPayment(this)">
+                <input type="radio" name="payment" value="Bank Transfer">
+                <div><div class="payment-opt-label">&#127981; Bank Transfer</div><div class="payment-opt-sub">Dutch-Bangla Bank — Acc: 105-110-12345</div></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="order-summary-card">
+            <div class="order-summary-title">Order Summary</div>
+            <div class="order-items-list" id="checkoutItemsList"></div>
+            <hr class="order-divider">
+            <div class="order-line"><span class="order-line-label">Subtotal</span><span class="order-line-val" id="co-subtotal"></span></div>
+            <div class="order-line"><span class="order-line-label">Delivery</span><span class="order-line-val" style="color:green;">FREE</span></div>
+            <div class="order-line"><span class="order-line-label">Discount</span><span class="order-line-val" style="color:#c0392b;" id="co-discount"></span></div>
+            <div class="order-total-line"><span>Total</span><span class="order-total-val" id="co-total"></span></div>
+            <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">Place Order &#8594;</button>
+            <p style="font-size:11px;color:var(--text-muted);text-align:center;margin-top:10px;">By placing your order you agree to our Terms & Conditions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: ORDER SUCCESS
+════════════════════════════════════════════ -->
+<div id="page-success" class="page">
+  <div class="container">
+    <div class="order-success-wrap">
+      <div class="success-icon">&#10003;</div>
+      <h1 class="success-title">Order Confirmed!</h1>
+      <p class="success-sub">Thank you for shopping with Asha Furniture. Your order has been received and our team will contact you shortly to confirm delivery details.</p>
+      <div class="success-order-num" id="successOrderNum">Order #AF-000000</div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="showPage('home')">Continue Shopping</button>
+        <button class="btn btn-outline" onclick="showPage('contact')">Contact Support</button>
+      </div>
+      <div style="margin-top:48px;padding:24px;background:var(--surface);border-radius:var(--radius-lg);max-width:480px;margin-left:auto;margin-right:auto;">
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">What happens next?</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;"><span style="color:var(--gold);font-weight:500;">1.</span><span>Our team calls to confirm your order within 2 hours</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;"><span style="color:var(--gold);font-weight:500;">2.</span><span>We arrange delivery at your preferred time slot</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;"><span style="color:var(--gold);font-weight:500;">3.</span><span>Free in-home assembly included with every order</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: ABOUT
+════════════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="container">
+      <div class="about-hero-grid">
+        <div>
+          <div class="sec-label" style="margin-bottom:12px;"><div class="sec-label-line"></div><span class="sec-label-text">Our Story</span></div>
+          <h1 class="about-hero-title">Eighteen years of <em>beautiful craft</em></h1>
+          <p class="about-story" style="margin-bottom:16px;">Founded in 2007 in the heart of Dhaka, Asha Furniture began as a small workshop with one simple belief: that every Bangladeshi home deserves furniture built to last generations.</p>
+          <p class="about-story">Today, we employ over 200 skilled artisans across three workshops, serving customers in every major city. Our commitment to solid wood, ethical sourcing and meticulous craftsmanship has never wavered.</p>
+        </div>
+        <div class="about-img-mock">&#9965;</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="sec-header"><h2 class="sec-title">Our <em>journey</em></h2></div>
+      <div class="timeline-items">
+        <div class="timeline-item"><div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div><div><div class="timeline-year">2007</div><p class="timeline-text">Asha Furniture is founded in Bashundhara with a 4-person team and a passion for solid wood joinery.</p></div></div>
+        <div class="timeline-item"><div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div><div><div class="timeline-year">2011</div><p class="timeline-text">We open our first showroom in Gulshan, Dhaka — 5,000 sqft of curated living spaces.</p></div></div>
+        <div class="timeline-item"><div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div><div><div class="timeline-year">2015</div><p class="timeline-text">Expansion to Chittagong and Sylhet. Launch of our custom furniture service.</p></div></div>
+        <div class="timeline-item"><div class="timeline-dot-col"><div class="timeline-dot"></div><div class="timeline-line"></div></div><div><div class="timeline-year">2019</div><p class="timeline-text">10,000 homes furnished. We introduce eco-certified materials and sustainable packaging.</p></div></div>
+        <div class="timeline-item"><div class="timeline-dot-col"><div class="timeline-dot"></div></div><div><div class="timeline-year">2026</div><p class="timeline-text">Launching our online store to bring premium craftsmanship to every corner of Bangladesh.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section section-alt">
+    <div class="container">
+      <div class="sec-header"><h2 class="sec-title">Meet the <em>team</em></h2></div>
+      <div class="team-grid">
+        <div class="team-card"><div class="team-photo">&#129489;</div><div class="team-name">Asha Begum</div><div class="team-role">Founder & CEO</div></div>
+        <div class="team-card"><div class="team-photo">&#129489;</div><div class="team-name">Farhan Ahmed</div><div class="team-role">Head of Design</div></div>
+        <div class="team-card"><div class="team-photo">&#129489;</div><div class="team-name">Sadia Islam</div><div class="team-role">Operations Director</div></div>
+        <div class="team-card"><div class="team-photo">&#129489;</div><div class="team-name">Raihan Chowdhury</div><div class="team-role">Master Craftsman</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon">&#127795;</div><div class="why-title">200+ Artisans</div><div class="why-desc">Skilled craftspeople trained in traditional Bangladeshi woodworking techniques.</div></div>
+        <div class="why-card"><div class="why-icon">&#127981;</div><div class="why-title">3 Workshops</div><div class="why-desc">State-of-the-art production facilities in Dhaka, Chittagong and Sylhet.</div></div>
+        <div class="why-card"><div class="why-icon">&#127968;</div><div class="why-title">14K+ Homes</div><div class="why-desc">Trusted by families across Bangladesh to furnish their most important spaces.</div></div>
+        <div class="why-card"><div class="why-icon">&#9850;</div><div class="why-title">Eco Certified</div><div class="why-desc">FSC-certified wood sourcing and carbon-neutral delivery in Dhaka.</div></div>
+      </div>
+    </div>
+  </div>
+  <footer style="background:var(--brown-deep);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;">
+    <span style="font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--cream);cursor:pointer;" onclick="showPage('home')">ASHA FURNITURE</span>
+    <span style="font-size:12px;color:rgba(245,237,216,0.5);">© 2026</span>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: CONTACT
+════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="contact-wrap">
+    <div class="container">
+      <div class="sec-label" style="margin-bottom:12px;"><div class="sec-label-line"></div><span class="sec-label-text">Get in Touch</span></div>
+      <div class="contact-grid">
+        <div>
+          <h1 class="contact-info-title">We'd love to<br><em style="font-style:italic;color:var(--brown-warm);">hear from you</em></h1>
+          <p class="contact-desc">Whether you have a question about products, need a custom order quote, or want to visit our showroom — we're here to help.</p>
+          <div class="contact-details">
+            <div class="contact-detail"><div class="contact-detail-icon">&#128222;</div><div><div class="contact-detail-label">Call us</div><div class="contact-detail-val"><a href="tel:+8801700123456">+880 1700-123456</a></div></div></div>
+            <div class="contact-detail"><div class="contact-detail-icon">&#128172;</div><div><div class="contact-detail-label">WhatsApp</div><div class="contact-detail-val"><a href="https://wa.me/8801700123456">+880 1700-123456</a></div></div></div>
+            <div class="contact-detail"><div class="contact-detail-icon">&#9993;</div><div><div class="contact-detail-label">Email</div><div class="contact-detail-val"><a href="mailto:info@ashafurniture.com.bd">info@ashafurniture.com.bd</a></div></div></div>
+            <div class="contact-detail"><div class="contact-detail-icon">&#128100;</div><div><div class="contact-detail-label">Facebook</div><div class="contact-detail-val"><a href="https://facebook.com/ashafurniturebd" target="_blank">facebook.com/ashafurniturebd</a></div></div></div>
+            <div class="contact-detail"><div class="contact-detail-icon">&#128205;</div><div><div class="contact-detail-label">Head Office</div><div class="contact-detail-val">House 12, Road 4, Block B<br>Bashundhara R/A, Dhaka 1229</div></div></div>
+            <div class="contact-detail"><div class="contact-detail-icon">&#128337;</div><div><div class="contact-detail-label">Opening Hours</div><div class="contact-detail-val">Sat–Thu: 10:00am – 8:00pm<br>Friday: 3:00pm – 9:00pm</div></div></div>
+          </div>
+        </div>
+        <div class="contact-form">
+          <div style="font-family:var(--font-display);font-size:22px;color:var(--brown-deep);margin-bottom:24px;">Send a message</div>
+          <div class="form-row">
+            <div><label class="form-label">Your Name *</label><input class="form-input" id="ct-name" placeholder="Your full name"></div>
+            <div><label class="form-label">Phone *</label><input class="form-input" id="ct-phone" placeholder="+880"></div>
+          </div>
+          <div class="form-row-full"><label class="form-label">Email</label><input class="form-input" id="ct-email" placeholder="your@email.com"></div>
+          <div class="form-row-full"><label class="form-label">Subject</label>
+            <select class="form-select" id="ct-subject">
+              <option>General Enquiry</option>
+              <option>Product Information</option>
+              <option>Custom Order Quote</option>
+              <option>Delivery Query</option>
+              <option>Warranty Claim</option>
+              <option>Showroom Visit</option>
+            </select>
+          </div>
+          <div class="form-row-full"><label class="form-label">Message *</label><textarea class="form-textarea" id="ct-message" style="min-height:120px;" placeholder="Tell us how we can help..."></textarea></div>
+          <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="submitContactForm()">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="showrooms-section section-alt">
+    <div class="container">
+      <div class="sec-header"><h2 class="sec-title">Our <em>showrooms</em></h2></div>
+      <div class="showroom-grid">
+        <div class="showroom-card"><div class="showroom-name">Dhaka — Bashundhara</div><div class="showroom-addr">House 12, Road 4, Block B<br>Bashundhara R/A, Dhaka 1229</div><div class="showroom-hours">Sun–Thu: 10am–8pm | Fri: 3–9pm</div></div>
+        <div class="showroom-card"><div class="showroom-name">Dhaka — Gulshan</div><div class="showroom-addr">Plot 14, Road 28<br>Gulshan-1, Dhaka 1212</div><div class="showroom-hours">Sun–Thu: 10am–8pm | Fri: 3–9pm</div></div>
+        <div class="showroom-card"><div class="showroom-name">Chittagong</div><div class="showroom-addr">GEC Circle, Khulshi<br>Chittagong 4000</div><div class="showroom-hours">Sun–Thu: 10am–7pm | Fri: 3–8pm</div></div>
+        <div class="showroom-card"><div class="showroom-name">Sylhet</div><div class="showroom-addr">Zindabazar, Sylhet 3100</div><div class="showroom-hours">Sun–Thu: 10am–7pm | Fri: Closed</div></div>
+        <div class="showroom-card"><div class="showroom-name">Rajshahi</div><div class="showroom-addr">Saheb Bazar, Rajshahi 6000</div><div class="showroom-hours">Sun–Thu: 10am–7pm</div></div>
+        <div class="showroom-card"><div class="showroom-name">Online</div><div class="showroom-addr">Shop anytime at<br>ashafurniture.com.bd</div><div class="showroom-hours">24/7 — Free delivery nationwide</div></div>
+      </div>
+    </div>
+  </div>
+  <footer style="background:var(--brown-deep);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;">
+    <span style="font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--cream);cursor:pointer;" onclick="showPage('home')">ASHA FURNITURE</span>
+    <span style="font-size:12px;color:rgba(245,237,216,0.5);">© 2026</span>
+  </footer>
+</div>
+
+<!-- ════════════════════════════════════════════
+  PAGE: FAQ
+════════════════════════════════════════════ -->
+<div id="page-faq" class="page">
+  <div class="container">
+    <div style="padding:56px 0 32px;">
+      <div class="sec-label" style="margin-bottom:12px;"><div class="sec-label-line"></div><span class="sec-label-text">Help Center</span></div>
+      <h1 style="font-family:var(--font-display);font-size:clamp(36px,4vw,52px);color:var(--brown-deep);">Frequently Asked <em style="font-style:italic;color:var(--brown-warm);">Questions</em></h1>
+    </div>
+    <div class="faq-wrap" style="padding-top:0;max-width:760px;">
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you offer free delivery? <span class="faq-icon">+</span></div><div class="faq-answer">Yes! We offer free delivery within Dhaka for all orders above ৳10,000. For other cities including Chittagong, Sylhet and Rajshahi, delivery is free for orders above ৳25,000. Standard delivery charges apply for smaller orders.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">How long does delivery take? <span class="faq-icon">+</span></div><div class="faq-answer">Within Dhaka: 2–4 business days. Chittagong & Sylhet: 5–7 business days. Other cities: 7–10 business days. Custom orders may take 3–6 weeks depending on complexity.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you offer assembly service? <span class="faq-icon">+</span></div><div class="faq-answer">Yes, free in-home assembly is included with every order within Dhaka. For other cities, assembly is available at a nominal fee. Our trained team will install your furniture exactly where you want it.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What is your return policy? <span class="faq-icon">+</span></div><div class="faq-answer">We accept returns within 7 days of delivery if the item is in original condition and there is a manufacturing defect. Custom orders are non-returnable. Please contact us within 48 hours if you notice any damage on delivery.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Do you take custom orders? <span class="faq-icon">+</span></div><div class="faq-answer">Absolutely! Custom furniture is one of our specialities. You can request custom sizes, finishes, upholstery colours and configurations. Contact us with your requirements and we'll provide a quote within 24 hours.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What warranty do you offer? <span class="faq-icon">+</span></div><div class="faq-answer">All solid wood structural components carry a 10-year warranty against manufacturing defects. Upholstery and fabric carry a 2-year warranty. Electronics (lighting, motorised components) carry a 1-year warranty.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">Can I pay in instalments (EMI)? <span class="faq-icon">+</span></div><div class="faq-answer">Yes! We offer 0% EMI plans through Dutch-Bangla Bank, BRAC Bank and City Bank credit cards for orders above ৳20,000. We also offer in-house instalment plans for orders above ৳50,000.</div></div>
+      <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)">What wood types do you use? <span class="faq-icon">+</span></div><div class="faq-answer">We use solid teak, American walnut, sheesham (rosewood), mahogany and oak — all FSC-certified and sourced from sustainable forests. We never use particle board or MDF for structural components.</div></div>
+    </div>
+  </div>
+  <footer style="background:var(--brown-deep);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;margin-top:40px;">
+    <span style="font-family:var(--font-display);font-size:20px;letter-spacing:2px;color:var(--cream);cursor:pointer;" onclick="showPage('home')">ASHA FURNITURE</span>
+    <span style="font-size:12px;color:rgba(245,237,216,0.5);">© 2026</span>
+  </footer>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const CATEGORIES = {
+  living:{name:'Living Room',icon:'🛋️',bg:'#F0E6DC',desc:'Curated sofas, coffee tables, TV units and accent chairs to make your living space truly yours.',subcats:['All','Sofas & Sectionals','Coffee Tables','TV Units','Accent Chairs','Rugs & Carpets','Shelving']},
+  bedroom:{name:'Bedroom',icon:'🛏️',bg:'#E8DDD4',desc:'From plush bed frames to smart storage — create your perfect sleep sanctuary.',subcats:['All','Beds & Frames','Wardrobes','Dressers','Nightstands','Mattresses','Mirrors']},
+  dining:{name:'Dining',icon:'🍽️',bg:'#F5EDE4',desc:'Gather around furniture built for family memories — tables, chairs and cabinets for every home.',subcats:['All','Dining Tables','Dining Chairs','Bar Stools','Sideboards','Display Cabinets']},
+  office:{name:'Office',icon:'💻',bg:'#EDE3D8',desc:'Productive, ergonomic and beautiful home office furniture for the modern professional.',subcats:['All','Desks','Office Chairs','Bookshelves','Filing Cabinets','Meeting Tables']},
+  outdoor:{name:'Outdoor',icon:'🌿',bg:'#E4EDE4',desc:'Weather-resistant furniture for balconies, gardens and rooftops.',subcats:['All','Garden Sets','Sun Loungers','Outdoor Sofas','Patio Tables','Hammocks']},
+  storage:{name:'Storage',icon:'📚',bg:'#EDE8E0',desc:'Clever storage that keeps your home tidy without sacrificing style.',subcats:['All','Shelving Units','Cabinets','Drawers','Coat Stands','Shoe Racks']},
+  kids:{name:'Kids Room',icon:'🎠',bg:'#F0EAF5',desc:'Safe, fun and durable furniture that grows with your child.',subcats:['All','Kids Beds','Study Desks','Toy Storage','Bunk Beds','Kids Chairs']},
+  decor:{name:'Decor & Accessories',icon:'🏺',bg:'#F5F0E8',desc:'The finishing touches that bring your home to life.',subcats:['All','Cushions & Throws','Vases','Wall Art','Clocks','Candles','Rugs']}
+};
+
+const ALL_PRODUCTS = [
+  {id:1,name:'Horizon 3-Seat Sofa',cat:'living',subcat:'Sofas & Sectionals',mat:'Solid teak · Premium linen',price:82000,oldPrice:110000,badge:'Bestseller',bg:'#F0E6DC',icon:'🛋️',desc:'The Horizon sofa is our most loved piece — a perfect balance of clean lines and deep comfort. Solid teak frame with hand-stitched linen upholstery in natural beige.',material:'Solid Teak Wood',dimensions:'220 × 90 × 85 cm',weight:'68 kg',colors:'Natural Beige, Slate Grey, Dusty Rose',warranty:'10 Years'},
+  {id:2,name:'Eclipse L-Sectional',cat:'living',subcat:'Sofas & Sectionals',mat:'Walnut frame · Velvet',price:124000,oldPrice:0,badge:'New',bg:'#EDE3D8',icon:'🛋️',desc:'Bold modular sectional with a deep walnut frame and plush charcoal velvet. Seats 5 comfortably.',material:'Walnut + Velvet',dimensions:'320 × 240 × 85 cm',weight:'95 kg',colors:'Charcoal, Forest Green',warranty:'10 Years'},
+  {id:3,name:'Oakwood Coffee Table',cat:'living',subcat:'Coffee Tables',mat:'Solid oak · Tempered glass',price:28500,oldPrice:36000,badge:'',bg:'#F5EDE4',icon:'🪵',desc:'Minimalist oak coffee table with a tempered glass top. Tapered legs and a natural oil finish.',material:'Solid Oak + Glass',dimensions:'120 × 60 × 42 cm',weight:'24 kg',colors:'Natural Oak, Dark Walnut',warranty:'5 Years'},
+  {id:4,name:'Teak TV Console 180cm',cat:'living',subcat:'TV Units',mat:'Teak wood · 3 drawers',price:36000,oldPrice:0,badge:'',bg:'#E8DDD4',icon:'📺',desc:'Sleek low-line TV console in aged teak with three deep drawers and sliding rattan panels.',material:'Solid Teak',dimensions:'180 × 45 × 55 cm',weight:'38 kg',colors:'Natural Teak, Smoked',warranty:'5 Years'},
+  {id:5,name:'Rattan Accent Chair',cat:'living',subcat:'Accent Chairs',mat:'Rattan · Cotton cushion',price:14500,oldPrice:18000,badge:'Sale',bg:'#F0E6DC',icon:'🪑',desc:'Bohemian-inspired rattan accent chair with a removable cotton cushion in warm ivory.',material:'Natural Rattan',dimensions:'72 × 68 × 85 cm',weight:'8 kg',colors:'Natural, Bleached White',warranty:'2 Years'},
+  {id:6,name:'Marble Side Table',cat:'living',subcat:'Coffee Tables',mat:'Marble top · Brass legs',price:19000,oldPrice:0,badge:'Trending',bg:'#F5EDE4',icon:'🪵',desc:'Italian Carrara marble-top side table with hand-polished brass legs.',material:'Marble + Brass',dimensions:'45 × 45 × 55 cm',weight:'16 kg',colors:'White/Brass, Black/Gold',warranty:'3 Years'},
+  {id:7,name:'Walnut Platform Bed',cat:'bedroom',subcat:'Beds & Frames',mat:'American walnut · King',price:68000,oldPrice:85000,badge:'Bestseller',bg:'#E8DDD4',icon:'🛏️',desc:'Low-profile platform bed in hand-oiled American walnut. No box spring required. Available in Queen, King and Super King.',material:'American Walnut',dimensions:'200 × 200 × 40 cm (King)',weight:'72 kg',colors:'Natural Walnut, Dark Espresso',warranty:'10 Years'},
+  {id:8,name:'4-Door Wardrobe',cat:'bedroom',subcat:'Wardrobes',mat:'Solid teak · Mirror panels',price:95000,oldPrice:0,badge:'',bg:'#EDE3D8',icon:'🪞',desc:'Grand 4-door wardrobe with full-length mirrors, interior LED lighting, and velvet-lined drawers.',material:'Solid Teak + Mirror',dimensions:'240 × 60 × 220 cm',weight:'140 kg',colors:'Natural Teak, White Oak',warranty:'10 Years'},
+  {id:9,name:'Dresser with Mirror',cat:'bedroom',subcat:'Dressers',mat:'Walnut veneer · Brass handles',price:54500,oldPrice:68000,badge:'New',bg:'#F0E6DC',icon:'🪞',desc:'Six-drawer dresser with a matching swivel mirror. Soft-close drawers and brushed brass ring pulls.',material:'Walnut Veneer + Brass',dimensions:'120 × 45 × 75 cm',weight:'52 kg',colors:'Walnut, White',warranty:'5 Years'},
+  {id:10,name:'Artisan Dining Set',cat:'dining',subcat:'Dining Tables',mat:'Mahogany · 6 chairs',price:118000,oldPrice:145000,badge:'Bestseller',bg:'#F5EDE4',icon:'🍽️',desc:'A statement dining set in solid mahogany — a 200cm rectangular table and six high-back upholstered chairs.',material:'Solid Mahogany',dimensions:'200 × 95 × 76 cm',weight:'120 kg',colors:'Dark Mahogany, Light Teak',warranty:'10 Years'},
+  {id:11,name:'Marble Dining Table',cat:'dining',subcat:'Dining Tables',mat:'Carrara marble · Steel',price:156000,oldPrice:0,badge:'Premium',bg:'#F5EDE4',icon:'🍽️',desc:'Luxury dining centrepiece in Carrara marble with matte black powder-coated steel legs.',material:'Carrara Marble + Steel',dimensions:'220 × 100 × 76 cm',weight:'160 kg',colors:'White/Black',warranty:'5 Years'},
+  {id:12,name:'Executive Desk 160cm',cat:'office',subcat:'Desks',mat:'Walnut veneer · Cable mgmt',price:46000,oldPrice:58000,badge:'Bestseller',bg:'#EDE3D8',icon:'💻',desc:'Generous 160cm executive desk with built-in cable management, two deep drawers and a leather writing pad.',material:'Walnut Veneer + Steel',dimensions:'160 × 80 × 76 cm',weight:'42 kg',colors:'Walnut/Black, Oak/White',warranty:'5 Years'},
+  {id:13,name:'Ergonomic Mesh Chair',cat:'office',subcat:'Office Chairs',mat:'Mesh back · Lumbar support',price:24500,oldPrice:32000,badge:'New',bg:'#F0E6DC',icon:'🪑',desc:'Full ergonomic support with adjustable lumbar, 4D armrests, recline lock and breathable mesh back.',material:'Mesh + Aluminium',dimensions:'65 × 65 × 115–125 cm',weight:'15 kg',colors:'Black, Grey',warranty:'3 Years'},
+  {id:14,name:'Teak Garden Set 6pc',cat:'outdoor',subcat:'Garden Sets',mat:'Teak · Weather-treated',price:88000,oldPrice:110000,badge:'Bestseller',bg:'#E4EDE4',icon:'🌿',desc:'Classic 6-piece teak garden set — a rectangular table and 4 folding chairs plus a bench, all in weather-treated Grade A teak.',material:'Grade A Teak',dimensions:'Table: 150 × 90 cm',weight:'85 kg',colors:'Natural Teak',warranty:'5 Years'},
+  {id:15,name:'Modular Shelf Unit',cat:'storage',subcat:'Shelving Units',mat:'Walnut veneer · 5 modules',price:38000,oldPrice:0,badge:'Bestseller',bg:'#EDE8E0',icon:'📚',desc:'Mix-and-match modular shelving system. Each module is 80cm wide and mounts flush to the wall.',material:'Walnut Veneer',dimensions:'80 × 30 × 200 cm per unit',weight:'32 kg',colors:'Walnut, White, Black',warranty:'5 Years'},
+  {id:16,name:'Bunk Bed with Slide',cat:'kids',subcat:'Bunk Beds',mat:'Pine · Safety rails',price:48000,oldPrice:58000,badge:'Bestseller',bg:'#F0EAF5',icon:'🎠',desc:'Fun and safe bunk bed with a built-in slide, safety rails, and under-bed storage drawers.',material:'Solid Pine',dimensions:'200 × 100 × 170 cm',weight:'65 kg',colors:'White, Natural Pine',warranty:'5 Years'},
+  {id:17,name:'Persian Area Rug 200x300',cat:'living',subcat:'Rugs & Carpets',mat:'Wool · Hand-knotted',price:32000,oldPrice:42000,badge:'',bg:'#E8DDD4',icon:'🏺',desc:'Hand-knotted wool rug in a traditional Persian medallion pattern. 120,000 knots per sq metre.',material:'100% Wool',dimensions:'200 × 300 cm',weight:'18 kg',colors:'Navy/Gold, Burgundy/Cream',warranty:'2 Years'},
+  {id:18,name:'Linen Cushion Set × 4',cat:'decor',subcat:'Cushions & Throws',mat:'Belgian linen · Feather insert',price:3800,oldPrice:4800,badge:'',bg:'#F5F0E8',icon:'🏺',desc:'Four co-ordinated Belgian linen cushions in complementary earth tones. Goose feather inserts included.',material:'Belgian Linen',dimensions:'50 × 50 cm each',weight:'2 kg',colors:'Terracotta Set, Blue Set, Neutral Set',warranty:'1 Year'},
+  {id:19,name:'Floating Nightstand',cat:'bedroom',subcat:'Nightstands',mat:'Oak · USB-A port · Drawer',price:9800,oldPrice:12500,badge:'',bg:'#F5EDE4',icon:'🛏️',desc:'Wall-mounted nightstand with a soft-close drawer and built-in USB-A charging port.',material:'Solid Oak',dimensions:'45 × 35 × 18 cm',weight:'6 kg',colors:'Oak, Walnut, White',warranty:'3 Years'},
+  {id:20,name:'Adjustable Standing Desk',cat:'office',subcat:'Desks',mat:'Oak top · Electric motor',price:52000,oldPrice:0,badge:'New',bg:'#EDE3D8',icon:'💻',desc:'Electric height-adjustable desk — sits at 70cm, rises to 120cm. Memory presets, quiet motor, oak solid top.',material:'Solid Oak + Steel',dimensions:'160 × 80 cm',weight:'48 kg',colors:'Oak/White, Oak/Black',warranty:'5 Years'},
+  {id:21,name:'Round Oak Dining Table',cat:'dining',subcat:'Dining Tables',mat:'Oak · 4-seater · 110cm',price:44000,oldPrice:54000,badge:'',bg:'#EDE3D8',icon:'🍽️',desc:'Beautiful round 110cm oak dining table — perfect for 4 people in a cosy dining space.',material:'Solid Oak',dimensions:'110 × 110 × 76 cm',weight:'48 kg',colors:'Natural Oak, Dark Oak',warranty:'10 Years'},
+  {id:22,name:'Canopy Bed Frame',cat:'bedroom',subcat:'Beds & Frames',mat:'Iron · White finish · Queen',price:78000,oldPrice:0,badge:'Trending',bg:'#F0EAF5',icon:'🛏️',desc:'Romantic iron canopy bed in matte white. Drape with voile or linen for a dreamy look.',material:'Powder-coated Iron',dimensions:'160 × 200 × 215 cm (Queen)',weight:'58 kg',colors:'Matte White, Matte Black',warranty:'5 Years'},
+  {id:23,name:'Outdoor Sofa Set 4pc',cat:'outdoor',subcat:'Outdoor Sofas',mat:'Aluminium · All-weather',price:74000,oldPrice:92000,badge:'New',bg:'#E4EDE4',icon:'🌿',desc:'4-piece all-weather aluminium sofa set with UV-resistant cushions. Withstands Bangladesh monsoon.',material:'Aluminium + Olefin Fabric',dimensions:'Sofa: 220 × 85 cm',weight:'60 kg',colors:'Graphite, Stone White',warranty:'3 Years'},
+  {id:24,name:'6-Shelf Bookcase',cat:'office',subcat:'Bookshelves',mat:'Solid oak · 200cm tall',price:32000,oldPrice:0,badge:'',bg:'#F5EDE4',icon:'📚',desc:'Classic open bookcase in solid oak. Six adjustable shelves, plinth base, top moulding.',material:'Solid Oak',dimensions:'90 × 35 × 200 cm',weight:'45 kg',colors:'Natural Oak, Dark Walnut',warranty:'5 Years'}
+];
+
+// ─────────────────────────────────────────────
+// CART STATE
+// ─────────────────────────────────────────────
+let cart = [];
+let currentCat = 'living';
+let currentSubcat = 'All';
+let currentProduct = null;
+
+function fmtPrice(n){ return '৳ ' + n.toLocaleString('en-BD'); }
+
+// ─────────────────────────────────────────────
+// PAGE NAV
+// ─────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+  closeCart();
+}
+
+// ─────────────────────────────────────────────
+// HOME — render grids
+// ─────────────────────────────────────────────
+function renderHome(){
+  // categories
+  const cats = Object.entries(CATEGORIES);
+  document.getElementById('homeCatGrid').innerHTML = cats.map(([k,c])=>`
+    <div class="cat-card" onclick="showCat('${k}','All')">
+      <div class="cat-img-wrap" style="background:${c.bg};"><span class="cat-icon">${c.icon}</span></div>
+      <div class="cat-body">
+        <div class="cat-name">${c.name}</div>
+        <div class="cat-count">${ALL_PRODUCTS.filter(p=>p.cat===k).length} items</div>
+      </div>
+      <div class="cat-arrow">›</div>
+    </div>`).join('');
+
+  // featured (top 6 with badges or highest price)
+  const featured = ALL_PRODUCTS.filter(p=>p.badge).slice(0,6);
+  document.getElementById('featuredGrid').innerHTML = featured.map(p=>prodCard(p)).join('');
+
+  // new arrivals (badge=New or last 4)
+  const newOnes = ALL_PRODUCTS.filter(p=>p.badge==='New').concat(ALL_PRODUCTS.filter(p=>!p.badge)).slice(0,4);
+  document.getElementById('newArrivalsGrid').innerHTML = newOnes.map(p=>prodCard(p,'sm')).join('');
+}
+
+function prodCard(p, size=''){
+  const imgH = size==='sm' ? '180px':'220px';
+  return `<div class="prod-card" onclick="showProduct(${p.id})">
+    <div class="prod-img-wrap" style="background:${p.bg};height:${imgH};">
+      ${p.badge?`<div class="prod-badge-wrap"><span class="prod-badge ${getBadgeClass(p.badge)}">${p.badge}</span></div>`:''}
+      <div class="prod-actions">
+        <button class="prod-action-btn" onclick="event.stopPropagation();addToCart(${p.id})" title="Add to cart">&#128722;</button>
+        <button class="prod-action-btn" onclick="event.stopPropagation();" title="Wishlist">&#9825;</button>
+      </div>
+      <span style="font-size:${size==='sm'?'52':'64'}px;">${p.icon}</span>
+    </div>
+    <div class="prod-body">
+      <div class="prod-category">${CATEGORIES[p.cat]?.name||''}</div>
+      <div class="prod-name">${p.name}</div>
+      <div class="prod-mat">${p.mat}</div>
+      <div class="prod-footer">
+        <div class="prod-price">${fmtPrice(p.price)}${p.oldPrice?`<small>${fmtPrice(p.oldPrice)}</small>`:''}</div>
+        <button class="btn-addcart" onclick="event.stopPropagation();addToCart(${p.id})">+ Cart</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function getBadgeClass(b){
+  if(b==='Bestseller') return 'badge-best';
+  if(b==='New'||b==='Trending') return 'badge-new';
+  if(b==='Sale') return 'badge-sale';
+  return 'badge-best';
+}
+
+// ─────────────────────────────────────────────
+// CATEGORY PAGE
+// ─────────────────────────────────────────────
+function showCat(catKey, subcat){
+  currentCat = catKey;
+  currentSubcat = subcat||'All';
+  const c = CATEGORIES[catKey];
+
+  document.getElementById('catBreadcrumb').innerHTML = `<span onclick="showPage('home')">Home</span><span class="breadcrumb-sep">›</span><span style="color:var(--brown-deep);font-weight:500;">${c.name}</span>`;
+  document.getElementById('catPageTitle').textContent = c.name;
+  document.getElementById('catPageDesc').textContent = c.desc;
+  document.getElementById('catPageHero').style.background = c.bg;
+
+  renderSubcats(catKey);
+  renderFilterChips();
+  renderCatProducts();
+  showPage('category');
+}
+
+function renderSubcats(catKey){
+  const c = CATEGORIES[catKey];
+  document.getElementById('catSubcatStrip').innerHTML = c.subcats.map(s=>`
+    <span class="subcat-pill ${s===currentSubcat?'active':''}" onclick="filterSubcat('${s}')">${s}</span>`).join('');
+}
+
+function filterSubcat(s){
+  currentSubcat = s;
+  renderSubcats(currentCat);
+  renderCatProducts();
+}
+
+function renderFilterChips(){
+  const chips = ['Under ৳20K','৳20K–50K','৳50K+','On Sale','In Stock'];
+  document.getElementById('filterChips').innerHTML = `<span class="filter-chip active" onclick="filterChipClick(this,'all')">All</span>`+
+    chips.map(c=>`<span class="filter-chip" onclick="filterChipClick(this,'${c}')">${c}</span>`).join('');
+}
+
+function filterChipClick(el, val){
+  document.querySelectorAll('#filterChips .filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderCatProducts(val);
+}
+
+function renderCatProducts(priceFilter){
+  let prods = ALL_PRODUCTS.filter(p=>p.cat===currentCat);
+  if(currentSubcat!=='All') prods=prods.filter(p=>p.subcat===currentSubcat);
+  const sort = document.getElementById('sortSel')?.value||'featured';
+  if(sort==='priceLow') prods.sort((a,b)=>a.price-b.price);
+  if(sort==='priceHigh') prods.sort((a,b)=>b.price-a.price);
+  if(priceFilter==='Under ৳20K') prods=prods.filter(p=>p.price<20000);
+  if(priceFilter==='৳20K–50K') prods=prods.filter(p=>p.price>=20000&&p.price<=50000);
+  if(priceFilter==='৳50K+') prods=prods.filter(p=>p.price>50000);
+  if(priceFilter==='On Sale') prods=prods.filter(p=>p.oldPrice>0);
+  document.getElementById('productCount').textContent = prods.length+' products';
+  document.getElementById('catProdGrid').innerHTML = prods.length
+    ? prods.map(p=>prodCard(p)).join('')
+    : '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);">No products found for this filter.</div>';
+}
+
+function applySortFilter(){ renderCatProducts(); }
+
+// ─────────────────────────────────────────────
+// PRODUCT DETAIL
+// ─────────────────────────────────────────────
+function showProduct(id){
+  const p = ALL_PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  currentProduct = p;
+  const c = CATEGORIES[p.cat];
+
+  document.getElementById('prodBreadcrumb').innerHTML = `<span onclick="showPage('home')">Home</span><span class="breadcrumb-sep">›</span><span onclick="showCat('${p.cat}','All')" style="cursor:pointer;">${c.name}</span><span class="breadcrumb-sep">›</span><span style="color:var(--brown-deep);font-weight:500;">${p.name}</span>`;
+  document.getElementById('prodGallery').innerHTML = `<span style="font-size:120px;">${p.icon}</span>`;
+  document.getElementById('prodGallery').style.background = p.bg;
+
+  document.getElementById('prodInfoSide').innerHTML = `
+    <div class="product-info-cat">${c.name} › ${p.subcat}</div>
+    <h1 class="product-info-title">${p.name}</h1>
+    <div class="product-rating"><span style="color:var(--gold);">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span style="font-size:13px;color:var(--text-muted);">(47 reviews)</span></div>
+    <div class="product-price-row">
+      <span class="product-price-main">${fmtPrice(p.price)}</span>
+      ${p.oldPrice?`<span class="product-price-old">${fmtPrice(p.oldPrice)}</span><span style="background:#fef2f2;color:#c0392b;font-size:12px;padding:4px 8px;border-radius:3px;">${Math.round((1-p.price/p.oldPrice)*100)}% OFF</span>`:''}
+    </div>
+    <p class="product-desc">${p.desc}</p>
+    <div class="product-meta">
+      <div class="product-meta-row"><span class="meta-key">Material</span><span class="meta-val">${p.material}</span></div>
+      <div class="product-meta-row"><span class="meta-key">Dimensions</span><span class="meta-val">${p.dimensions}</span></div>
+      <div class="product-meta-row"><span class="meta-key">Weight</span><span class="meta-val">${p.weight}</span></div>
+      <div class="product-meta-row"><span class="meta-key">Colors</span><span class="meta-val">${p.colors}</span></div>
+      <div class="product-meta-row"><span class="meta-key">Warranty</span><span class="meta-val">${p.warranty}</span></div>
+    </div>
+    <div class="qty-row">
+      <span class="qty-label">Qty:</span>
+      <div class="qty-ctrl">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <input class="qty-num" id="prodQty" value="1" readonly>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+    </div>
+    <div class="product-cta">
+      <button class="btn-addcart-lg" id="addCartBtn" onclick="addToCartQty(${p.id})">Add to Cart</button>
+      <button class="btn-wishlist">&#9825;</button>
+    </div>
+    <div class="guarantee-strip">
+      <div class="guarantee-item"><span class="guarantee-icon">&#128666;</span> Free Delivery</div>
+      <div class="guarantee-item"><span class="guarantee-icon">&#128737;</span> ${p.warranty} Warranty</div>
+      <div class="guarantee-item"><span class="guarantee-icon">&#9850;</span> Eco Certified</div>
+    </div>`;
+
+  // related
+  const related = ALL_PRODUCTS.filter(x=>x.cat===p.cat&&x.id!==p.id).slice(0,3);
+  document.getElementById('relatedGrid').innerHTML = related.map(x=>prodCard(x)).join('');
+  showPage('product');
+}
+
+function changeQty(d){
+  const el = document.getElementById('prodQty');
+  const v = Math.max(1, Math.min(10, parseInt(el.value)+d));
+  el.value = v;
+}
+
+// ─────────────────────────────────────────────
+// CART
+// ─────────────────────────────────────────────
+function addToCart(id){
+  const p = ALL_PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  updateCartBadge();
+  renderCartDrawer();
+  showToast(p.name+' added to cart!');
+}
+
+function addToCartQty(id){
+  const qty = parseInt(document.getElementById('prodQty')?.value||1);
+  const p = ALL_PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty+=qty;
+  else cart.push({...p, qty});
+  updateCartBadge();
+  renderCartDrawer();
+  const btn = document.getElementById('addCartBtn');
+  if(btn){btn.textContent='✓ Added!';btn.classList.add('added');setTimeout(()=>{btn.textContent='Add to Cart';btn.classList.remove('added');},1500);}
+  showToast(p.name+' added to cart!');
+}
+
+function updateCartBadge(){
+  const total = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartBadge').textContent = total;
+}
+
+function renderCartDrawer(){
+  const el = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if(cart.length===0){
+    el.innerHTML=`<div class="cart-empty"><div class="cart-empty-icon">🛒</div><div class="cart-empty-text">Your cart is empty</div><button class="btn btn-primary" onclick="closeCart();showCat('living','All')">Start Shopping</button></div>`;
+    footer.innerHTML='';
+    return;
+  }
+  el.innerHTML = cart.map(item=>`
+    <div class="cart-item">
+      <div class="cart-item-img">${item.icon}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-mat">${item.mat}</div>
+        <div class="cart-item-price">${fmtPrice(item.price * item.qty)}</div>
+        <div class="cart-item-qty">
+          <button class="cart-qty-btn" onclick="cartQty(${item.id},-1)">−</button>
+          <span class="cart-qty-num">${item.qty}</span>
+          <button class="cart-qty-btn" onclick="cartQty(${item.id},1)">+</button>
+        </div>
+      </div>
+      <button class="cart-item-remove" onclick="removeFromCart(${item.id})">&#215;</button>
+    </div>`).join('');
+  const subtotal = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  footer.innerHTML=`
+    <div class="cart-subtotal"><span class="cart-subtotal-label">Subtotal</span><span class="cart-subtotal-val">${fmtPrice(subtotal)}</span></div>
+    <button class="cart-checkout-btn" onclick="goCheckout()">Proceed to Checkout →</button>
+    <button class="cart-continue-btn" onclick="closeCart()">Continue Shopping</button>`;
+}
+
+function cartQty(id, d){
+  const item = cart.find(x=>x.id===id);
+  if(!item) return;
+  item.qty = Math.max(1, item.qty+d);
+  updateCartBadge();
+  renderCartDrawer();
+}
+
+function removeFromCart(id){
+  cart = cart.filter(x=>x.id!==id);
+  updateCartBadge();
+  renderCartDrawer();
+}
+
+function openCart(){
+  renderCartDrawer();
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeCart(){
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function goCheckout(){
+  if(cart.length===0){showToast('Your cart is empty!');return;}
+  closeCart();
+  renderCheckout();
+  showPage('checkout');
+}
+
+// ─────────────────────────────────────────────
+// CHECKOUT
+// ─────────────────────────────────────────────
+function renderCheckout(){
+  const list = document.getElementById('checkoutItemsList');
+  list.innerHTML = cart.map(item=>`
+    <div class="order-item">
+      <div class="order-item-img">${item.icon}</div>
+      <div><div class="order-item-name">${item.name}</div><div class="order-item-qty">Qty: ${item.qty}</div></div>
+      <div class="order-item-price">${fmtPrice(item.price*item.qty)}</div>
+    </div>`).join('');
+  const subtotal = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const discount = cart.some(x=>x.oldPrice) ? Math.round(subtotal*0.05) : 0;
+  document.getElementById('co-subtotal').textContent = fmtPrice(subtotal);
+  document.getElementById('co-discount').textContent = discount ? '-'+fmtPrice(discount) : '৳ 0';
+  document.getElementById('co-total').textContent = fmtPrice(subtotal - discount);
+}
+
+function selectPayment(el){
+  document.querySelectorAll('.payment-opt').forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ─────────────────────────────────────────────
+// PLACE ORDER — Google Sheets Integration
+// ─────────────────────────────────────────────
+// SETUP: Replace the URL below with your Google Apps Script Web App URL
+// Steps: 1) Go to script.google.com 2) New project 3) Paste the doPost function 4) Deploy as web app 5) Copy URL here
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+async function placeOrder(){
+  const fname = document.getElementById('co-fname').value.trim();
+  const lname = document.getElementById('co-lname').value.trim();
+  const phone = document.getElementById('co-phone').value.trim();
+  const email = document.getElementById('co-email').value.trim();
+  const address = document.getElementById('co-address').value.trim();
+  const city = document.getElementById('co-city').value;
+  const district = document.getElementById('co-district').value.trim();
+  const notes = document.getElementById('co-notes').value.trim();
+  const paymentEl = document.querySelector('.payment-opt.selected input');
+  const payment = paymentEl ? paymentEl.value : 'COD';
+
+  if(!fname||!phone||!address){showToast('Please fill all required fields!');return;}
+
+  const btn = document.getElementById('placeOrderBtn');
+  btn.disabled = true;
+  btn.textContent = 'Placing Order...';
+
+  const orderNum = 'AF-' + Date.now().toString().slice(-6);
+  const subtotal = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const itemsSummary = cart.map(x=>`${x.name} ×${x.qty}`).join(', ');
+
+  const orderData = {
+    orderNumber: orderNum,
+    timestamp: new Date().toLocaleString('en-BD',{timeZone:'Asia/Dhaka'}),
+    customerName: fname+' '+lname,
+    phone, email,
+    address, city, district, notes,
+    items: itemsSummary,
+    itemCount: cart.reduce((s,x)=>s+x.qty,0),
+    subtotal: subtotal,
+    total: subtotal,
+    paymentMethod: payment,
+    status: 'Pending'
+  };
+
+  try {
+    // Send to Google Sheets
+    if(GOOGLE_SCRIPT_URL.includes('YOUR_SCRIPT_ID')){
+      // Demo mode — show success without actually sending
+      console.log('Order data (demo mode):', orderData);
+    } else {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(orderData)
+      });
+    }
+    // Success
+    document.getElementById('successOrderNum').textContent = 'Order '+orderNum;
+    cart = [];
+    updateCartBadge();
+    renderCartDrawer();
+    showPage('success');
+  } catch(err){
+    console.error(err);
+    // Still show success page (order data logged)
+    document.getElementById('successOrderNum').textContent = 'Order '+orderNum;
+    cart = [];
+    updateCartBadge();
+    renderCartDrawer();
+    showPage('success');
+  }
+}
+
+// ─────────────────────────────────────────────
+// CONTACT FORM
+// ─────────────────────────────────────────────
+function submitContactForm(){
+  const name = document.getElementById('ct-name').value.trim();
+  const phone = document.getElementById('ct-phone').value.trim();
+  const msg = document.getElementById('ct-message').value.trim();
+  if(!name||!phone||!msg){showToast('Please fill all required fields!');return;}
+  showToast('Message sent! We will contact you shortly.');
+  ['ct-name','ct-phone','ct-email','ct-message'].forEach(id=>{document.getElementById(id).value='';});
+}
+
+// ─────────────────────────────────────────────
+// SEARCH
+// ─────────────────────────────────────────────
+function openSearch(){
+  document.getElementById('searchOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('searchInput').focus(),100);
+}
+function closeSearch(){ document.getElementById('searchOverlay').classList.remove('open'); }
+function doSearch(term){
+  closeSearch();
+  const results = ALL_PRODUCTS.filter(p=>p.name.toLowerCase().includes(term.toLowerCase())||p.mat.toLowerCase().includes(term.toLowerCase()));
+  if(results.length>0) showProduct(results[0].id);
+  else showToast('No products found for "'+term+'"');
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeSearch();
+});
+
+// ─────────────────────────────────────────────
+// FAQ TOGGLE
+// ─────────────────────────────────────────────
+function toggleFaq(el){
+  const item = el.parentElement;
+  const answer = item.querySelector('.faq-answer');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-answer').classList.remove('open');});
+  if(!isOpen){item.classList.add('open');answer.classList.add('open');}
+}
+
+// ─────────────────────────────────────────────
+// TOAST
+// ─────────────────────────────────────────────
+let toastTimer;
+function showToast(msg){
+  clearTimeout(toastTimer);
+  document.getElementById('toastMsg').textContent = msg;
+  document.getElementById('toast').classList.add('show');
+  toastTimer = setTimeout(()=>document.getElementById('toast').classList.remove('show'),3000);
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+window.addEventListener('load',()=>{
+  renderHome();
+  setTimeout(()=>{
+    const lo = document.getElementById('loadingOverlay');
+    lo.style.opacity='0';
+    setTimeout(()=>lo.style.display='none',600);
+  },1200);
+});
+</script>
+</body>
+</html>
