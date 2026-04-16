@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asha Admin — Control Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F0A06;
+  --surface: #1A1208;
+  --surface2: #221808;
+  --panel: #1E1510;
+  --brown-deep: #2C1A0E;
+  --brown-mid: #5C3D22;
+  --brown-warm: #8B5E3C;
+  --brown-light: #C4956A;
+  --gold: #C8922A;
+  --gold-light: #E8C87A;
+  --gold-dim: rgba(200,146,42,0.15);
+  --cream: #F5EDD8;
+  --text: #EDE0CC;
+  --text-muted: #8A7060;
+  --text-dim: #4A3828;
+  --border: rgba(200,146,42,0.12);
+  --border-strong: rgba(200,146,42,0.28);
+  --red: #C0392B;
+  --green: #2E7D4F;
+  --green-light: rgba(46,125,79,0.18);
+  --shadow: 0 4px 24px rgba(0,0,0,0.5);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', sans-serif;
+  --sidebar-w: 260px;
+  --topbar-h: 60px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--brown-mid);border-radius:2px;}
+input,select,textarea,button{font-family:var(--font-body);}
+
+/* ── LAYOUT ── */
+.layout{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:100vh;}
+.main{margin-left:0;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);position:fixed;top:0;left:0;height:100vh;display:flex;flex-direction:column;z-index:100;overflow-y:auto;}
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border);}
+.sidebar-logo-name{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--gold-light);letter-spacing:3px;}
+.sidebar-logo-tag{font-size:9px;letter-spacing:4px;color:var(--text-muted);text-transform:uppercase;margin-top:2px;}
+.sidebar-logo-badge{display:inline-block;background:var(--gold-dim);color:var(--gold);font-size:9px;letter-spacing:2px;padding:2px 8px;border-radius:3px;margin-top:8px;border:1px solid var(--border-strong);}
+.sidebar-section{padding:20px 12px 8px;font-size:9px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:6px;cursor:pointer;margin:1px 8px;color:var(--text-muted);font-size:13px;font-weight:500;transition:all 0.2s ease;position:relative;}
+.nav-item:hover{background:var(--gold-dim);color:var(--text);}
+.nav-item.active{background:linear-gradient(135deg,rgba(200,146,42,0.2),rgba(200,146,42,0.08));color:var(--gold-light);border:1px solid var(--border-strong);}
+.nav-item.active::before{content:'';position:absolute;left:-8px;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--gold);border-radius:0 2px 2px 0;}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-badge{margin-left:auto;background:var(--gold);color:var(--bg);font-size:9px;font-weight:600;padding:2px 6px;border-radius:10px;min-width:18px;text-align:center;}
+.sidebar-footer{margin-top:auto;padding:16px;border-top:1px solid var(--border);}
+.admin-pill{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--panel);border-radius:8px;border:1px solid var(--border);}
+.admin-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--brown-warm));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--bg);flex-shrink:0;}
+.admin-name{font-size:12px;font-weight:500;color:var(--text);}
+.admin-role{font-size:10px;color:var(--text-muted);}
+
+/* ── TOPBAR ── */
+.topbar{height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;}
+.topbar-left{display:flex;align-items:center;gap:12px;}
+.topbar-title{font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);}
+.topbar-right{display:flex;align-items:center;gap:10px;}
+.topbar-btn{background:var(--gold-dim);border:1px solid var(--border-strong);border-radius:6px;color:var(--gold-light);padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;}
+.topbar-btn:hover{background:var(--gold);color:var(--bg);}
+.topbar-btn.primary{background:var(--gold);color:var(--bg);}
+.topbar-btn.primary:hover{background:var(--gold-light);}
+
+/* ── CONTENT AREA ── */
+.content{flex:1;padding:28px;max-width:1400px;}
+
+/* ── DASHBOARD STATS ── */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden;cursor:default;}
+.stat-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(200,146,42,0.04),transparent);pointer-events:none;}
+.stat-label{font-size:10px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;}
+.stat-num{font-family:var(--font-display);font-size:32px;font-weight:500;color:var(--text);line-height:1;}
+.stat-sub{font-size:11px;color:var(--green);margin-top:6px;}
+.stat-icon{position:absolute;top:16px;right:16px;font-size:28px;opacity:0.25;}
+
+/* ── SECTION CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:24px;overflow:hidden;}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border);}
+.card-title{font-size:14px;font-weight:600;color:var(--text);letter-spacing:0.3px;}
+.card-body{padding:22px;}
+.card-actions{display:flex;gap:8px;align-items:center;}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;}
+th{font-size:10px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;padding:10px 14px;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap;}
+td{padding:12px 14px;border-bottom:1px solid rgba(200,146,42,0.06);color:var(--text);font-size:13px;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(200,146,42,0.03);}
+.td-img{width:44px;height:44px;border-radius:6px;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--panel);}
+.td-name{font-weight:500;color:var(--text);}
+.td-sub{font-size:11px;color:var(--text-muted);margin-top:2px;}
+.td-price{font-family:var(--font-display);font-size:16px;color:var(--gold-light);}
+.badge{display:inline-block;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:3px;font-weight:600;text-transform:uppercase;}
+.badge-active{background:var(--green-light);color:#5DC98A;border:1px solid rgba(46,125,79,0.3);}
+.badge-pending{background:rgba(200,146,42,0.15);color:var(--gold);border:1px solid rgba(200,146,42,0.25);}
+.badge-draft{background:rgba(100,80,60,0.3);color:var(--text-muted);border:1px solid var(--border);}
+.badge-new{background:rgba(200,146,42,0.2);color:var(--gold-light);}
+.badge-sale{background:rgba(192,57,43,0.2);color:#E74C3C;}
+.action-btns{display:flex;gap:6px;}
+.action-btn{background:transparent;border:1px solid var(--border);border-radius:5px;padding:5px 10px;font-size:11px;color:var(--text-muted);cursor:pointer;transition:all 0.2s;white-space:nowrap;}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.action-btn.danger:hover{border-color:var(--red);color:var(--red);}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;}
+.form-full{grid-column:1/-1;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase;}
+.form-input{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--text);font-size:13px;outline:none;transition:border-color 0.2s;width:100%;}
+.form-input:focus{border-color:var(--gold);}
+.form-input::placeholder{color:var(--text-dim);}
+textarea.form-input{min-height:90px;resize:vertical;}
+select.form-input{cursor:pointer;}
+select.form-input option{background:var(--panel);color:var(--text);}
+
+/* ── IMAGE UPLOAD ── */
+.upload-zone{border:2px dashed var(--border-strong);border-radius:10px;padding:32px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative;background:var(--panel);}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--gold);background:var(--gold-dim);}
+.upload-zone-icon{font-size:36px;margin-bottom:10px;opacity:0.6;}
+.upload-zone-text{font-size:13px;color:var(--text-muted);}
+.upload-zone-sub{font-size:11px;color:var(--text-dim);margin-top:4px;}
+.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.img-preview-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;}
+.img-preview-item{position:relative;aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--border);}
+.img-preview-item img{width:100%;height:100%;object-fit:cover;}
+.img-preview-item .remove-img{position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.7);color:#fff;border:none;border-radius:3px;width:20px;height:20px;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.img-preview-item .img-emoji{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:36px;background:var(--panel);}
+.img-main-badge{position:absolute;bottom:4px;left:4px;background:var(--gold);color:var(--bg);font-size:9px;padding:2px 6px;border-radius:2px;font-weight:600;}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;background:var(--panel);border-radius:8px;padding:3px;margin-bottom:22px;}
+.tab{flex:1;padding:8px 0;font-size:12px;font-weight:500;text-align:center;border-radius:6px;cursor:pointer;color:var(--text-muted);transition:all 0.2s;}
+.tab.active{background:var(--gold-dim);color:var(--gold-light);border:1px solid var(--border-strong);}
+
+/* ── ORDER STATUS ── */
+.status-flow{display:flex;align-items:center;gap:6px;margin-top:10px;}
+.status-step{flex:1;text-align:center;}
+.status-dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;margin:0 auto 4px;transition:all 0.3s;}
+.status-dot.done{border-color:var(--green);background:var(--green-light);color:#5DC98A;}
+.status-dot.active{border-color:var(--gold);background:var(--gold-dim);color:var(--gold);}
+.status-line{flex:1;height:1px;background:var(--border);max-width:40px;}
+.status-line.done{background:var(--green);}
+.status-label{font-size:10px;color:var(--text-dim);}
+
+/* ── TOGGLE ── */
+.toggle-wrap{display:flex;align-items:center;gap:10px;}
+.toggle{width:40px;height:22px;border-radius:11px;background:var(--panel);border:1px solid var(--border);cursor:pointer;position:relative;transition:background 0.2s;}
+.toggle.on{background:var(--gold);}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:var(--text-muted);transition:all 0.2s;}
+.toggle.on::after{left:21px;background:var(--bg);}
+.toggle-label{font-size:13px;color:var(--text-muted);}
+
+/* ── COLOR SWATCH PICKER ── */
+.swatch-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.swatch{width:26px;height:26px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color 0.2s;}
+.swatch.active{border-color:var(--gold);}
+.swatch-add{width:26px;height:26px;border-radius:50%;border:1px dashed var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-dim);cursor:pointer;}
+
+/* ── MODAL ── */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.25s;}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:700px;max-width:95vw;max-height:90vh;overflow-y:auto;transform:scale(0.95);transition:transform 0.25s;box-shadow:var(--shadow);}
+.modal-backdrop.open .modal{transform:scale(1);}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border);}
+.modal-title{font-family:var(--font-display);font-size:20px;color:var(--text);}
+.modal-close{background:transparent;border:1px solid var(--border);border-radius:5px;color:var(--text-muted);width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.modal-close:hover{border-color:var(--red);color:var(--red);}
+.modal-body{padding:24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;}
+
+/* ── TOAST ── */
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;}
+.toast{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow);min-width:260px;transform:translateX(120%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);color:var(--text);}
+.toast.show{transform:translateX(0);}
+.toast.success{border-color:rgba(46,125,79,0.5);}
+.toast.error{border-color:rgba(192,57,43,0.5);}
+
+/* ── MISC ── */
+.section-divider{height:1px;background:var(--border);margin:24px 0;}
+.text-muted{color:var(--text-muted);}
+.text-gold{color:var(--gold);}
+.hidden{display:none!important;}
+.page-content{display:none;}
+.page-content.active{display:block;}
+.empty-state{text-align:center;padding:48px 24px;color:var(--text-muted);}
+.empty-icon{font-size:40px;margin-bottom:12px;opacity:0.5;}
+
+.search-bar{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:8px 14px;color:var(--text);font-size:13px;outline:none;width:240px;}
+.search-bar:focus{border-color:var(--gold);}
+.search-bar::placeholder{color:var(--text-dim);}
+
+/* ── SETTINGS ── */
+.settings-grid{display:grid;grid-template-columns:220px 1fr;gap:24px;}
+.settings-nav{background:var(--panel);border-radius:8px;border:1px solid var(--border);padding:8px;height:fit-content;}
+.settings-nav-item{padding:9px 14px;border-radius:5px;font-size:13px;cursor:pointer;color:var(--text-muted);}
+.settings-nav-item:hover,.settings-nav-item.active{background:var(--gold-dim);color:var(--gold-light);}
+
+/* ── ANALYTICS CHART (CSS bars) ── */
+.chart-wrap{display:flex;align-items:flex-end;gap:8px;height:120px;padding:0 4px;}
+.chart-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.chart-bar{width:100%;background:linear-gradient(180deg,var(--gold),rgba(200,146,42,0.4));border-radius:3px 3px 0 0;transition:height 0.6s ease;min-height:4px;}
+.chart-label{font-size:10px;color:var(--text-dim);white-space:nowrap;}
+
+/* ── NOTIFICATION DOT ── */
+.notif-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);position:absolute;top:6px;right:6px;}
+
+/* ── RESPONSIVE MAIN ── */
+.main-inner{margin-left:var(--sidebar-w);display:flex;flex-direction:column;min-height:100vh;}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sidebar-logo">
+    <div class="sidebar-logo-name">ASHA</div>
+    <div class="sidebar-logo-tag">Furniture</div>
+    <div class="sidebar-logo-badge">ADMIN PANEL</div>
+  </div>
+
+  <div class="sidebar-section">Main</div>
+  <div class="nav-item active" onclick="switchPage('dashboard',this)">
+    <span class="nav-icon">⬡</span> Dashboard
+  </div>
+  <div class="nav-item" onclick="switchPage('orders',this)">
+    <span class="nav-icon">📦</span> Orders
+    <span class="nav-badge" id="ordersBadge">12</span>
+  </div>
+
+  <div class="sidebar-section">Catalogue</div>
+  <div class="nav-item" onclick="switchPage('products',this)">
+    <span class="nav-icon">🪑</span> Products
+  </div>
+  <div class="nav-item" onclick="switchPage('addproduct',this)">
+    <span class="nav-icon">✦</span> Add Product
+  </div>
+  <div class="nav-item" onclick="switchPage('categories',this)">
+    <span class="nav-icon">⊞</span> Categories
+  </div>
+
+  <div class="sidebar-section">Business</div>
+  <div class="nav-item" onclick="switchPage('customers',this)">
+    <span class="nav-icon">👥</span> Customers
+  </div>
+  <div class="nav-item" onclick="switchPage('analytics',this)">
+    <span class="nav-icon">◈</span> Analytics
+  </div>
+  <div class="nav-item" onclick="switchPage('promotions',this)">
+    <span class="nav-icon">◉</span> Promotions
+  </div>
+
+  <div class="sidebar-section">System</div>
+  <div class="nav-item" onclick="switchPage('settings',this)">
+    <span class="nav-icon">⚙</span> Settings
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="admin-pill">
+      <div class="admin-avatar">A</div>
+      <div>
+        <div class="admin-name">Shahid</div>
+        <div class="admin-role">Super Admin</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN AREA -->
+<div class="main-inner">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-title" id="topbarTitle">Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <input class="search-bar" placeholder="🔍  Search anything..." id="globalSearch">
+      <button class="topbar-btn" onclick="switchPage('addproduct',null)">+ Add Product</button>
+      <button class="topbar-btn primary" onclick="window.open('https://srabonymajumder13-coder.github.io/ashafurniture/','_blank')">↗ Live Site</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- ════ DASHBOARD ════ -->
+    <div class="page-content active" id="page-dashboard">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-num">৳ 84.2L</div>
+          <div class="stat-sub">↑ 12% this month</div>
+          <div class="stat-icon">💰</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Orders Today</div>
+          <div class="stat-num">24</div>
+          <div class="stat-sub">↑ 3 from yesterday</div>
+          <div class="stat-icon">📦</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Products</div>
+          <div class="stat-num">24</div>
+          <div class="stat-sub">↑ 2 added this week</div>
+          <div class="stat-icon">🪑</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Customers</div>
+          <div class="stat-num">1,430</div>
+          <div class="stat-sub">↑ 8% this month</div>
+          <div class="stat-icon">👥</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Sales Overview — April 2026</span>
+            <span class="text-muted" style="font-size:12px;">BDT in thousands</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-wrap" id="salesChart"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Recent Orders</span><span class="action-btn" onclick="switchPage('orders',null)" style="cursor:pointer;font-size:11px;color:var(--gold);">View all</span></div>
+          <div class="card-body" style="padding:0;">
+            <div id="recentOrdersList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <div class="card-header">
+          <span class="card-title">Best Selling Products</span>
+          <button class="action-btn" onclick="switchPage('products',null)">Manage All</button>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Sales</th><th>Stock</th><th>Status</th></tr></thead>
+              <tbody id="dashProdTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ PRODUCTS ════ -->
+    <div class="page-content" id="page-products">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">All Products <span style="color:var(--text-muted);font-weight:400;font-size:12px;" id="prodCount"></span></span>
+          <div class="card-actions">
+            <input class="search-bar" style="width:180px;" placeholder="Search products..." oninput="filterProducts(this.value)">
+            <select class="form-input" style="width:150px;padding:8px 12px;" onchange="filterProductsCat(this.value)" id="prodCatFilter">
+              <option value="">All Categories</option>
+            </select>
+            <button class="topbar-btn primary" onclick="switchPage('addproduct',null)">+ Add Product</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Image</th><th>Product</th><th>Category</th><th>Price</th><th>Badge</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="productsTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ ADD/EDIT PRODUCT ════ -->
+    <div class="page-content" id="page-addproduct">
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start;">
+        <!-- Left Column -->
+        <div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">Product Images</span><span style="font-size:11px;color:var(--text-muted);">First image = main display</span></div>
+            <div class="card-body">
+              <div class="upload-zone" id="uploadZone" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+                <input type="file" id="imageUpload" accept="image/*" multiple onchange="handleImageUpload(event)">
+                <div class="upload-zone-icon">🖼</div>
+                <div class="upload-zone-text">Drag & drop product images here</div>
+                <div class="upload-zone-sub">or click to browse — PNG, JPG, WebP up to 8MB each</div>
+              </div>
+              <div class="img-preview-grid" id="imagePreviewGrid"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">Basic Information</span></div>
+            <div class="card-body">
+              <div class="form-grid" style="gap:16px;">
+                <div class="form-group form-full">
+                  <label class="form-label">Product Name *</label>
+                  <input class="form-input" id="pName" placeholder="e.g. Horizon 3-Seat Sofa">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Category *</label>
+                  <select class="form-input" id="pCat">
+                    <option value="living">Living Room</option>
+                    <option value="bedroom">Bedroom</option>
+                    <option value="dining">Dining</option>
+                    <option value="office">Office</option>
+                    <option value="outdoor">Outdoor</option>
+                    <option value="storage">Storage</option>
+                    <option value="kids">Kids Room</option>
+                    <option value="decor">Decor & Accessories</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Sub-category</label>
+                  <input class="form-input" id="pSubcat" placeholder="e.g. Sofas & Sectionals">
+                </div>
+                <div class="form-group form-full">
+                  <label class="form-label">Short Description (shown in card)</label>
+                  <input class="form-input" id="pMat" placeholder="e.g. Solid teak · Premium linen">
+                </div>
+                <div class="form-group form-full">
+                  <label class="form-label">Full Description *</label>
+                  <textarea class="form-input" id="pDesc" style="min-height:120px;" placeholder="Detailed product description..."></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">Pricing & Badge</span></div>
+            <div class="card-body">
+              <div class="form-grid-3" style="gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Selling Price (৳) *</label>
+                  <input class="form-input" id="pPrice" type="number" placeholder="82000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Original Price (৳)</label>
+                  <input class="form-input" id="pOldPrice" type="number" placeholder="0 = no strike-through">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Badge Label</label>
+                  <select class="form-input" id="pBadge">
+                    <option value="">None</option>
+                    <option value="Bestseller">Bestseller</option>
+                    <option value="New">New</option>
+                    <option value="Sale">Sale</option>
+                    <option value="Trending">Trending</option>
+                    <option value="Premium">Premium</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">Product Specifications</span></div>
+            <div class="card-body">
+              <div class="form-grid" style="gap:16px;">
+                <div class="form-group">
+                  <label class="form-label">Material</label>
+                  <input class="form-input" id="pMaterial" placeholder="e.g. Solid Teak Wood">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Dimensions</label>
+                  <input class="form-input" id="pDimensions" placeholder="220 × 90 × 85 cm">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Weight</label>
+                  <input class="form-input" id="pWeight" placeholder="68 kg">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Warranty</label>
+                  <input class="form-input" id="pWarranty" placeholder="10 Years">
+                </div>
+                <div class="form-group form-full">
+                  <label class="form-label">Available Colors / Finishes</label>
+                  <input class="form-input" id="pColors" placeholder="Natural Beige, Slate Grey, Dusty Rose">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div style="position:sticky;top:80px;">
+          <div class="card">
+            <div class="card-header"><span class="card-title">Publish</span></div>
+            <div class="card-body">
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label">Status</label>
+                <select class="form-input" id="pStatus">
+                  <option value="active">Active — visible in store</option>
+                  <option value="draft">Draft — hidden from store</option>
+                </select>
+              </div>
+              <div style="margin-bottom:14px;">
+                <div class="toggle-wrap" style="margin-bottom:10px;">
+                  <div class="toggle on" id="toggleFeatured" onclick="this.classList.toggle('on')"></div>
+                  <span class="toggle-label">Featured on homepage</span>
+                </div>
+                <div class="toggle-wrap">
+                  <div class="toggle" id="toggleInStock" onclick="this.classList.toggle('on')"></div>
+                  <span class="toggle-label">In Stock</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:18px;">
+                <button class="topbar-btn primary" style="width:100%;padding:11px;font-size:13px;" onclick="saveProduct()">
+                  ✓ Save Product
+                </button>
+                <button class="action-btn" style="width:100%;padding:10px;text-align:center;" onclick="clearProductForm()">
+                  ↺ Clear Form
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top:16px;">
+            <div class="card-header"><span class="card-title">Product Preview</span></div>
+            <div class="card-body" style="padding:14px;">
+              <div id="livePreview" style="background:var(--panel);border-radius:8px;overflow:hidden;border:1px solid var(--border);">
+                <div style="height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;background:var(--surface2);" id="previewImg">🪑</div>
+                <div style="padding:12px;">
+                  <div style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px;" id="previewCat">Living Room</div>
+                  <div style="font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px;" id="previewName">Product Name</div>
+                  <div style="font-size:11px;color:var(--text-muted);margin-bottom:10px;" id="previewMat">Material info</div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border);">
+                    <span style="font-family:var(--font-display);font-size:17px;color:var(--gold-light);" id="previewPrice">৳ 0</span>
+                    <span style="background:var(--brown-deep);color:var(--cream);font-size:10px;padding:5px 10px;border-radius:4px;">+ Cart</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ ORDERS ════ -->
+    <div class="page-content" id="page-orders">
+      <div class="tabs" style="max-width:500px;">
+        <div class="tab active" onclick="filterOrders('all',this)">All Orders</div>
+        <div class="tab" onclick="filterOrders('pending',this)">Pending</div>
+        <div class="tab" onclick="filterOrders('processing',this)">Processing</div>
+        <div class="tab" onclick="filterOrders('delivered',this)">Delivered</div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Orders <span style="color:var(--text-muted);font-weight:400;font-size:12px;" id="orderCount"></span></span>
+          <div class="card-actions">
+            <input class="search-bar" style="width:200px;" placeholder="Search by order # or name..." oninput="searchOrders(this.value)">
+            <button class="action-btn" onclick="exportOrders()">↓ Export CSV</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:0;">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Order #</th><th>Customer</th><th>Items</th><th>Total</th><th>Payment</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="ordersTable"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ CATEGORIES ════ -->
+    <div class="page-content" id="page-categories">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="card">
+          <div class="card-header"><span class="card-title">All Categories</span></div>
+          <div class="card-body" style="padding:0;">
+            <table>
+              <thead><tr><th>Icon</th><th>Name</th><th>Products</th><th>Actions</th></tr></thead>
+              <tbody id="catsTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Add / Edit Category</span></div>
+          <div class="card-body">
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Category Name</label>
+              <input class="form-input" id="catName" placeholder="e.g. Outdoor Furniture">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Icon (emoji)</label>
+              <input class="form-input" id="catIcon" placeholder="🌿" style="font-size:20px;width:80px;">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Description</label>
+              <textarea class="form-input" id="catDesc" placeholder="Short description..."></textarea>
+            </div>
+            <button class="topbar-btn primary" style="width:100%;padding:11px;" onclick="saveCat()">Save Category</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ CUSTOMERS ════ -->
+    <div class="page-content" id="page-customers">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Customer Database</span>
+          <input class="search-bar" placeholder="Search customers..." style="width:220px;">
+        </div>
+        <div class="card-body" style="padding:0;">
+          <table>
+            <thead><tr><th>#</th><th>Name</th><th>Phone</th><th>City</th><th>Orders</th><th>Total Spent</th><th>Last Order</th></tr></thead>
+            <tbody id="customersTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ ANALYTICS ════ -->
+    <div class="page-content" id="page-analytics">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:22px;">
+        <div class="stat-card"><div class="stat-label">This Month Revenue</div><div class="stat-num">৳ 12.4L</div><div class="stat-sub">↑ 18% vs last month</div><div class="stat-icon">📈</div></div>
+        <div class="stat-card"><div class="stat-label">Avg Order Value</div><div class="stat-num">৳ 51,800</div><div class="stat-sub">↑ 6% vs last month</div><div class="stat-icon">🧾</div></div>
+        <div class="stat-card"><div class="stat-label">Conversion Rate</div><div class="stat-num">3.8%</div><div class="stat-sub">↑ 0.4% vs last month</div><div class="stat-icon">🎯</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div class="card"><div class="card-header"><span class="card-title">Monthly Revenue (2026)</span></div><div class="card-body"><div class="chart-wrap" id="monthlyChart"></div></div></div>
+        <div class="card"><div class="card-header"><span class="card-title">Revenue by Category</span></div><div class="card-body" id="catBreakdown"></div></div>
+      </div>
+    </div>
+
+    <!-- ════ PROMOTIONS ════ -->
+    <div class="page-content" id="page-promotions">
+      <div style="display:grid;grid-template-columns:1fr 380px;gap:22px;align-items:start;">
+        <div class="card">
+          <div class="card-header"><span class="card-title">Active Promotions</span><button class="topbar-btn primary" onclick="openPromoModal()">+ Create Promo</button></div>
+          <div class="card-body" style="padding:0;">
+            <table>
+              <thead><tr><th>Promo Code</th><th>Type</th><th>Value</th><th>Usage</th><th>Expires</th><th>Status</th><th>Actions</th></tr></thead>
+              <tbody id="promosTable"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title">Quick Promo</span></div>
+          <div class="card-body">
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Promo Code</label>
+              <input class="form-input" id="promoCode" placeholder="e.g. SUMMER30">
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Discount Type</label>
+              <select class="form-input" id="promoType">
+                <option>Percentage Off</option>
+                <option>Fixed Amount Off</option>
+                <option>Free Delivery</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom:14px;">
+              <label class="form-label">Value</label>
+              <input class="form-input" id="promoValue" placeholder="30 (%)">
+            </div>
+            <div class="form-group" style="margin-bottom:16px;">
+              <label class="form-label">Expiry Date</label>
+              <input class="form-input" type="date" id="promoExpiry">
+            </div>
+            <button class="topbar-btn primary" style="width:100%;padding:11px;" onclick="savePromo()">Create Promotion</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════ SETTINGS ════ -->
+    <div class="page-content" id="page-settings">
+      <div class="settings-grid">
+        <div class="settings-nav">
+          <div class="settings-nav-item active" onclick="switchSettingsTab('general',this)">General</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('store',this)">Store Info</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('delivery',this)">Delivery</div>
+          <div class="settings-nav-item" onclick="switchSettingsTab('integrations',this)">Integrations</div>
+        </div>
+        <div>
+          <div id="settings-general">
+            <div class="card"><div class="card-header"><span class="card-title">General Settings</span></div><div class="card-body">
+              <div class="form-grid" style="gap:16px;">
+                <div class="form-group"><label class="form-label">Store Name</label><input class="form-input" value="Asha Furniture"></div>
+                <div class="form-group"><label class="form-label">Currency</label><select class="form-input"><option>BDT (৳)</option><option>USD ($)</option></select></div>
+                <div class="form-group"><label class="form-label">Admin Email</label><input class="form-input" value="ashafurniture10@gmail.com"></div>
+                <div class="form-group"><label class="form-label">Phone</label><input class="form-input" value="+8801965-796594"></div>
+              </div>
+              <div style="margin-top:16px;"><button class="topbar-btn primary" onclick="showToast('Settings saved!','success')">Save Changes</button></div>
+            </div></div>
+          </div>
+          <div id="settings-store" class="hidden">
+            <div class="card"><div class="card-header"><span class="card-title">Store Information</span></div><div class="card-body">
+              <div class="form-group" style="margin-bottom:14px;"><label class="form-label">Address</label><textarea class="form-input">1054/1-A East Shewrapara Begum Rokeya Avenue, Dhaka, Bangladesh</textarea></div>
+              <div class="form-group" style="margin-bottom:14px;"><label class="form-label">Opening Hours</label><input class="form-input" value="Sat–Thu: 8:00am – 9:00pm"></div>
+              <button class="topbar-btn primary" onclick="showToast('Saved!','success')">Save</button>
+            </div></div>
+          </div>
+          <div id="settings-delivery" class="hidden">
+            <div class="card"><div class="card-header"><span class="card-title">Delivery Settings</span></div><div class="card-body">
+              <div class="form-grid" style="gap:16px;margin-bottom:14px;">
+                <div class="form-group"><label class="form-label">Free Delivery Threshold (৳)</label><input class="form-input" type="number" value="50000"></div>
+                <div class="form-group"><label class="form-label">Std Delivery Fee (৳)</label><input class="form-input" type="number" value="500"></div>
+              </div>
+              <button class="topbar-btn primary" onclick="showToast('Delivery settings saved!','success')">Save</button>
+            </div></div>
+          </div>
+          <div id="settings-integrations" class="hidden">
+            <div class="card"><div class="card-header"><span class="card-title">Google Sheets Integration</span></div><div class="card-body">
+              <div class="form-group" style="margin-bottom:14px;">
+                <label class="form-label">Google Apps Script URL</label>
+                <input class="form-input" id="settingsScriptUrl" placeholder="https://script.google.com/macros/s/...">
+              </div>
+              <div style="background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:14px;font-size:12px;color:var(--text-muted);line-height:1.7;">
+                ℹ️ Orders placed on the store are submitted to this URL via Google Apps Script. Make sure your script is deployed as a Web App with "Anyone" access.
+              </div>
+              <button class="topbar-btn primary" onclick="showToast('Integration settings saved!','success')">Save URL</button>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main-inner -->
+
+<!-- ════ ORDER DETAIL MODAL ════ -->
+<div class="modal-backdrop" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalOrderTitle">Order Details</span>
+      <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
+    </div>
+    <div class="modal-body" id="modalOrderBody"></div>
+    <div class="modal-footer">
+      <select class="form-input" style="width:180px;" id="modalStatusSel">
+        <option value="pending">Pending</option>
+        <option value="processing">Processing</option>
+        <option value="shipped">Shipped</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+      <button class="topbar-btn primary" onclick="updateOrderStatus()">Update Status</button>
+      <button class="action-btn" onclick="closeModal('orderModal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════ TOAST CONTAINER ════ -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA — same products array from main site
+// ══════════════════════════════════════════
+const CATEGORIES = {
+  living:{name:'Living Room',icon:'🛋️',bg:'#F0E6DC',desc:'Curated sofas, coffee tables, TV units and accent chairs.'},
+  bedroom:{name:'Bedroom',icon:'🛏️',bg:'#E8DDD4',desc:'Beds, wardrobes and storage for your sleep sanctuary.'},
+  dining:{name:'Dining',icon:'🍽️',bg:'#F5EDE4',desc:'Tables, chairs and cabinets for family gatherings.'},
+  office:{name:'Office',icon:'💻',bg:'#EDE3D8',desc:'Ergonomic home office furniture.'},
+  outdoor:{name:'Outdoor',icon:'🌿',bg:'#E4EDE4',desc:'Weather-resistant garden furniture.'},
+  storage:{name:'Storage',icon:'📚',bg:'#EDE8E0',desc:'Clever storage solutions.'},
+  kids:{name:'Kids Room',icon:'🎠',bg:'#F0EAF5',desc:'Safe and fun furniture for children.'},
+  decor:{name:'Decor',icon:'🏺',bg:'#F5F0E8',desc:'Accessories and finishing touches.'}
+};
+
+let products = [
+  {id:1,name:'Horizon 3-Seat Sofa',cat:'living',subcat:'Sofas & Sectionals',mat:'Solid teak · Premium linen',price:82000,oldPrice:110000,badge:'Bestseller',icon:'🛋️',desc:'The Horizon sofa is our most loved piece.',material:'Solid Teak Wood',dimensions:'220 × 90 × 85 cm',weight:'68 kg',colors:'Natural Beige, Slate Grey',warranty:'10 Years',status:'active',sales:148},
+  {id:2,name:'Eclipse L-Sectional',cat:'living',subcat:'Sofas & Sectionals',mat:'Walnut frame · Velvet',price:124000,oldPrice:0,badge:'New',icon:'🛋️',desc:'Bold modular sectional.',material:'Walnut + Velvet',dimensions:'320 × 240 × 85 cm',weight:'95 kg',colors:'Charcoal, Forest Green',warranty:'10 Years',status:'active',sales:62},
+  {id:3,name:'Oakwood Coffee Table',cat:'living',subcat:'Coffee Tables',mat:'Solid oak · Tempered glass',price:28500,oldPrice:36000,badge:'',icon:'🪵',desc:'Minimalist oak coffee table.',material:'Solid Oak + Glass',dimensions:'120 × 60 × 42 cm',weight:'24 kg',colors:'Natural Oak, Dark Walnut',warranty:'5 Years',status:'active',sales:95},
+  {id:4,name:'Teak TV Console 180cm',cat:'living',subcat:'TV Units',mat:'Teak wood · 3 drawers',price:36000,oldPrice:0,badge:'',icon:'📺',desc:'Sleek low-line TV console.',material:'Solid Teak',dimensions:'180 × 45 × 55 cm',weight:'38 kg',colors:'Natural Teak, Smoked',warranty:'5 Years',status:'active',sales:77},
+  {id:5,name:'Rattan Accent Chair',cat:'living',subcat:'Accent Chairs',mat:'Rattan · Cotton cushion',price:14500,oldPrice:18000,badge:'Sale',icon:'🪑',desc:'Bohemian rattan accent chair.',material:'Natural Rattan',dimensions:'72 × 68 × 85 cm',weight:'8 kg',colors:'Natural, Bleached White',warranty:'2 Years',status:'active',sales:210},
+  {id:7,name:'Walnut Platform Bed',cat:'bedroom',subcat:'Beds & Frames',mat:'American walnut · King',price:68000,oldPrice:85000,badge:'Bestseller',icon:'🛏️',desc:'Low-profile platform bed.',material:'American Walnut',dimensions:'200 × 200 × 40 cm',weight:'72 kg',colors:'Natural Walnut',warranty:'10 Years',status:'active',sales:130},
+  {id:8,name:'4-Door Wardrobe',cat:'bedroom',subcat:'Wardrobes',mat:'Solid teak · Mirror panels',price:95000,oldPrice:0,badge:'',icon:'🪞',desc:'Grand 4-door wardrobe.',material:'Solid Teak + Mirror',dimensions:'240 × 60 × 220 cm',weight:'140 kg',colors:'Natural Teak',warranty:'10 Years',status:'active',sales:44},
+  {id:10,name:'Artisan Dining Set',cat:'dining',subcat:'Dining Tables',mat:'Mahogany · 6 chairs',price:118000,oldPrice:145000,badge:'Bestseller',icon:'🍽️',desc:'Statement mahogany dining set.',material:'Solid Mahogany',dimensions:'200 × 95 × 76 cm',weight:'120 kg',colors:'Dark Mahogany',warranty:'10 Years',status:'active',sales:86},
+  {id:12,name:'Executive Desk 160cm',cat:'office',subcat:'Desks',mat:'Walnut veneer · Cable mgmt',price:46000,oldPrice:58000,badge:'Bestseller',icon:'💻',desc:'Generous executive desk.',material:'Walnut Veneer + Steel',dimensions:'160 × 80 × 76 cm',weight:'42 kg',colors:'Walnut/Black',warranty:'5 Years',status:'active',sales:108},
+  {id:20,name:'Adjustable Standing Desk',cat:'office',subcat:'Desks',mat:'Oak top · Electric motor',price:52000,oldPrice:0,badge:'New',icon:'💻',desc:'Electric height-adjustable desk.',material:'Solid Oak + Steel',dimensions:'160 × 80 cm',weight:'48 kg',colors:'Oak/White, Oak/Black',warranty:'5 Years',status:'draft',sales:28}
+];
+
+let orders = [
+  {id:'AF-241601',customer:'Rafiya Sultana',phone:'+880 1712-345678',city:'Dhaka',items:'Horizon 3-Seat Sofa ×1',total:82000,payment:'bKash',status:'delivered',date:'Apr 14, 2026'},
+  {id:'AF-241598',customer:'Karim Islam',phone:'+880 1812-987654',city:'Dhaka',items:'Artisan Dining Set ×1',total:118000,payment:'COD',status:'processing',date:'Apr 15, 2026'},
+  {id:'AF-241595',customer:'Nadia Ahmed',phone:'+880 1912-111222',city:'Chittagong',items:'4-Door Wardrobe ×1',total:95000,payment:'Bank Transfer',status:'pending',date:'Apr 16, 2026'},
+  {id:'AF-241590',customer:'Tariq Hossain',phone:'+880 1611-444555',city:'Dhaka',items:'Executive Desk ×1, Ergonomic Chair ×1',total:71000,payment:'bKash',status:'shipped',date:'Apr 13, 2026'},
+  {id:'AF-241585',customer:'Sadia Begum',phone:'+880 1511-667788',city:'Sylhet',items:'Walnut Platform Bed ×1',total:68000,payment:'Nagad',status:'delivered',date:'Apr 12, 2026'},
+  {id:'AF-241580',customer:'Imran Khan',phone:'+880 1711-223344',city:'Dhaka',items:'Rattan Accent Chair ×2',total:29000,payment:'COD',status:'pending',date:'Apr 16, 2026'},
+  {id:'AF-241575',customer:'Farzana Khanam',phone:'+880 1811-556677',city:'Rajshahi',items:'Oakwood Coffee Table ×1',total:28500,payment:'bKash',status:'processing',date:'Apr 15, 2026'},
+  {id:'AF-241570',customer:'Mizanur Rahman',phone:'+880 1911-889900',city:'Dhaka',items:'Standing Desk ×1',total:52000,payment:'Bank Transfer',status:'delivered',date:'Apr 10, 2026'},
+];
+
+let promos = [
+  {code:'SUMMER30',type:'Percentage Off',value:'30%',usage:'12/50',expires:'Apr 30, 2026',status:'active'},
+  {code:'NEWCUST15',type:'Percentage Off',value:'15%',usage:'28/100',expires:'May 15, 2026',status:'active'},
+  {code:'FREESHIP',type:'Free Delivery',value:'—',usage:'45/200',expires:'Mar 31, 2026',status:'expired'},
+];
+
+let currentOrderFilter = 'all';
+let currentEditingOrderId = null;
+let uploadedImages = [];
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function switchPage(id, navEl) {
+  document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (navEl) navEl.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.textContent.trim().toLowerCase().includes(id.toLowerCase().replace('addproduct','add'))) n.classList.add('active');
+    });
+  }
+  const titles = {dashboard:'Dashboard',products:'Products',addproduct:'Add New Product',orders:'Orders',categories:'Categories',customers:'Customers',analytics:'Analytics',promotions:'Promotions',settings:'Settings'};
+  document.getElementById('topbarTitle').textContent = titles[id] || id;
+  if (id === 'products') renderProductsTable();
+  if (id === 'orders') renderOrdersTable();
+  if (id === 'categories') renderCatsTable();
+  if (id === 'customers') renderCustomers();
+  if (id === 'analytics') renderAnalytics();
+  if (id === 'promotions') renderPromos();
+  if (id === 'dashboard') renderDashboard();
+}
+
+// ══════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════
+function renderDashboard() {
+  // Sales chart
+  const data = [18,24,15,31,27,22,35,29,38,41,36,44,28,30,24];
+  const max = Math.max(...data);
+  document.getElementById('salesChart').innerHTML = data.map((v,i) => `
+    <div class="chart-bar-wrap">
+      <div class="chart-bar" style="height:${Math.round((v/max)*100)}px;" title="৳${v}K"></div>
+      <div class="chart-label">${i+1}</div>
+    </div>`).join('');
+
+  // Recent orders
+  document.getElementById('recentOrdersList').innerHTML = orders.slice(0,5).map(o => `
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--border);">
+      <div>
+        <div style="font-size:12px;font-weight:500;color:var(--text);">${o.customer}</div>
+        <div style="font-size:10px;color:var(--text-muted);">${o.id}</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;color:var(--gold-light);">৳${(o.total/1000).toFixed(0)}K</div>
+        <span class="badge badge-${o.status==='delivered'?'active':o.status==='pending'?'pending':'new'}">${o.status}</span>
+      </div>
+    </div>`).join('');
+
+  // Best sellers table
+  const sorted = [...products].sort((a,b) => b.sales - a.sales).slice(0,6);
+  document.getElementById('dashProdTable').innerHTML = sorted.map(p => `
+    <tr>
+      <td><div style="display:flex;align-items:center;gap:10px;"><div class="td-img">${p.icon}</div><div><div class="td-name">${p.name}</div><div class="td-sub">${p.mat}</div></div></div></td>
+      <td><span style="font-size:12px;color:var(--text-muted);">${CATEGORIES[p.cat]?.name}</span></td>
+      <td class="td-price">৳${(p.price/1000).toFixed(0)}K</td>
+      <td style="color:var(--gold);">${p.sales} sold</td>
+      <td><span style="color:var(--green);font-size:12px;">In Stock</span></td>
+      <td><span class="badge ${p.status==='active'?'badge-active':'badge-draft'}">${p.status}</span></td>
+    </tr>`).join('');
+}
+
+// ══════════════════════════════════════════
+// PRODUCTS TABLE
+// ══════════════════════════════════════════
+function renderProductsTable(filter='') {
+  let list = filter ? products.filter(p => p.name.toLowerCase().includes(filter) || CATEGORIES[p.cat]?.name.toLowerCase().includes(filter)) : products;
+  document.getElementById('prodCount').textContent = `(${list.length})`;
+  document.getElementById('productsTable').innerHTML = list.map(p => `
+    <tr>
+      <td><div class="td-img">${p.img ? `<img src="${p.img}" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">` : p.icon}</div></td>
+      <td><div class="td-name">${p.name}</div><div class="td-sub">${p.mat}</div></td>
+      <td><span style="font-size:12px;color:var(--text-muted);">${CATEGORIES[p.cat]?.name}</span></td>
+      <td class="td-price">৳${p.price.toLocaleString()}${p.oldPrice?`<br><small style="font-size:10px;color:var(--text-muted);text-decoration:line-through;">৳${p.oldPrice.toLocaleString()}</small>`:''}</td>
+      <td>${p.badge?`<span class="badge badge-${getBadge(p.badge)}">${p.badge}</span>`:'<span style="color:var(--text-dim);">—</span>'}</td>
+      <td><span class="badge ${p.status==='active'?'badge-active':'badge-draft'}">${p.status}</span></td>
+      <td>
+        <div class="action-btns">
+          <button class="action-btn" onclick="editProduct(${p.id})">✎ Edit</button>
+          <button class="action-btn danger" onclick="deleteProduct(${p.id})">✕ Del</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function filterProducts(v) { renderProductsTable(v.toLowerCase()); }
+function filterProductsCat(v) { renderProductsTable(); }
+function getBadge(b) {
+  if (b==='Bestseller') return 'active';
+  if (b==='New'||b==='Trending') return 'new';
+  if (b==='Sale') return 'sale';
+  return 'pending';
+}
+
+// Populate category filter
+function initCatFilter() {
+  const sel = document.getElementById('prodCatFilter');
+  Object.entries(CATEGORIES).forEach(([k,c]) => {
+    sel.innerHTML += `<option value="${k}">${c.name}</option>`;
+  });
+}
+
+function editProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('pName').value = p.name;
+  document.getElementById('pCat').value = p.cat;
+  document.getElementById('pSubcat').value = p.subcat || '';
+  document.getElementById('pMat').value = p.mat;
+  document.getElementById('pDesc').value = p.desc;
+  document.getElementById('pPrice').value = p.price;
+  document.getElementById('pOldPrice').value = p.oldPrice || '';
+  document.getElementById('pBadge').value = p.badge || '';
+  document.getElementById('pMaterial').value = p.material || '';
+  document.getElementById('pDimensions').value = p.dimensions || '';
+  document.getElementById('pWeight').value = p.weight || '';
+  document.getElementById('pWarranty').value = p.warranty || '';
+  document.getElementById('pColors').value = p.colors || '';
+  document.getElementById('pStatus').value = p.status || 'active';
+  uploadedImages = [];
+  document.getElementById('imagePreviewGrid').innerHTML = p.img ? 
+    `<div class="img-preview-item"><img src="${p.img}"><div class="img-main-badge">Main</div></div>` :
+    `<div class="img-preview-item"><div class="img-emoji">${p.icon}</div><div class="img-main-badge">Current</div></div>`;
+  updatePreview();
+  switchPage('addproduct', null);
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.textContent.includes('Add Product')) n.classList.add('active');
+  });
+  showToast('Editing: ' + p.name, 'success');
+}
+
+function deleteProduct(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  if (confirm(`Delete "${p.name}"? This cannot be undone.`)) {
+    products = products.filter(x => x.id !== id);
+    renderProductsTable();
+    showToast(p.name + ' deleted.', 'error');
+  }
+}
+
+// ══════════════════════════════════════════
+// ADD PRODUCT FORM
+// ══════════════════════════════════════════
+function saveProduct() {
+  const name = document.getElementById('pName').value.trim();
+  const price = parseFloat(document.getElementById('pPrice').value);
+  if (!name || !price) { showToast('Product name and price are required!', 'error'); return; }
+
+  const newProd = {
+    id: Date.now(),
+    name,
+    cat: document.getElementById('pCat').value,
+    subcat: document.getElementById('pSubcat').value,
+    mat: document.getElementById('pMat').value,
+    desc: document.getElementById('pDesc').value,
+    price,
+    oldPrice: parseFloat(document.getElementById('pOldPrice').value) || 0,
+    badge: document.getElementById('pBadge').value,
+    material: document.getElementById('pMaterial').value,
+    dimensions: document.getElementById('pDimensions').value,
+    weight: document.getElementById('pWeight').value,
+    warranty: document.getElementById('pWarranty').value,
+    colors: document.getElementById('pColors').value,
+    status: document.getElementById('pStatus').value,
+    icon: '🪑',
+    img: uploadedImages[0] || null,
+    sales: 0
+  };
+
+  const existIdx = products.findIndex(p => p.name === name);
+  if (existIdx >= 0) {
+    products[existIdx] = { ...products[existIdx], ...newProd, id: products[existIdx].id };
+    showToast('Product updated successfully!', 'success');
+  } else {
+    products.push(newProd);
+    showToast('Product added to catalogue!', 'success');
+  }
+  clearProductForm();
+}
+
+function clearProductForm() {
+  ['pName','pSubcat','pMat','pDesc','pPrice','pOldPrice','pMaterial','pDimensions','pWeight','pWarranty','pColors'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('pBadge').value = '';
+  document.getElementById('pCat').value = 'living';
+  uploadedImages = [];
+  document.getElementById('imagePreviewGrid').innerHTML = '';
+  updatePreview();
+}
+
+// ══════════════════════════════════════════
+// IMAGE UPLOAD
+// ══════════════════════════════════════════
+function handleImageUpload(e) {
+  const files = Array.from(e.target.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      uploadedImages.push(ev.target.result);
+      renderImagePreviews();
+      updatePreview();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.add('drag');
+}
+function handleDragLeave() {
+  document.getElementById('uploadZone').classList.remove('drag');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('drag');
+  const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => { uploadedImages.push(ev.target.result); renderImagePreviews(); updatePreview(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderImagePreviews() {
+  document.getElementById('imagePreviewGrid').innerHTML = uploadedImages.map((src, i) => `
+    <div class="img-preview-item">
+      <img src="${src}" alt="Preview ${i+1}">
+      ${i===0?'<div class="img-main-badge">Main</div>':''}
+      <button class="remove-img" onclick="removeImg(${i})">✕</button>
+    </div>`).join('');
+}
+
+function removeImg(idx) {
+  uploadedImages.splice(idx, 1);
+  renderImagePreviews();
+  updatePreview();
+}
+
+// ══════════════════════════════════════════
+// LIVE PREVIEW
+// ══════════════════════════════════════════
+function updatePreview() {
+  const name = document.getElementById('pName').value || 'Product Name';
+  const mat = document.getElementById('pMat').value || 'Material info';
+  const price = document.getElementById('pPrice').value || '0';
+  const cat = document.getElementById('pCat').value;
+  const img = uploadedImages[0];
+
+  document.getElementById('previewName').textContent = name;
+  document.getElementById('previewMat').textContent = mat;
+  document.getElementById('previewPrice').textContent = '৳ ' + parseInt(price||0).toLocaleString();
+  document.getElementById('previewCat').textContent = CATEGORIES[cat]?.name || 'Category';
+  if (img) {
+    document.getElementById('previewImg').innerHTML = `<img src="${img}" style="width:100%;height:100%;object-fit:cover;">`;
+  } else {
+    document.getElementById('previewImg').innerHTML = CATEGORIES[cat]?.icon || '🪑';
+  }
+}
+
+// Attach live preview listeners
+['pName','pMat','pPrice','pCat'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', updatePreview);
+  document.getElementById(id)?.addEventListener('change', updatePreview);
+});
+
+// ══════════════════════════════════════════
+// ORDERS
+// ══════════════════════════════════════════
+function renderOrdersTable(filter='', search='') {
+  let list = orders;
+  if (filter && filter !== 'all') list = list.filter(o => o.status === filter);
+  if (search) list = list.filter(o => o.id.toLowerCase().includes(search) || o.customer.toLowerCase().includes(search));
+  document.getElementById('orderCount').textContent = `(${list.length})`;
+  document.getElementById('ordersTable').innerHTML = list.map(o => `
+    <tr>
+      <td><span style="font-family:monospace;font-size:12px;color:var(--gold);">${o.id}</span></td>
+      <td><div class="td-name">${o.customer}</div><div class="td-sub">${o.phone}</div></td>
+      <td style="max-width:200px;"><div class="td-sub" style="white-space:normal;">${o.items}</div></td>
+      <td class="td-price">৳${o.total.toLocaleString()}</td>
+      <td><span style="font-size:12px;color:var(--text-muted);">${o.payment}</span></td>
+      <td><span class="badge badge-${statusClass(o.status)}">${o.status}</span></td>
+      <td style="font-size:12px;color:var(--text-muted);">${o.date}</td>
+      <td>
+        <div class="action-btns">
+          <button class="action-btn" onclick="viewOrder('${o.id}')">View</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function statusClass(s) {
+  if (s==='delivered') return 'active';
+  if (s==='pending') return 'pending';
+  if (s==='processing'||s==='shipped') return 'new';
+  return 'draft';
+}
+
+function filterOrders(filter, tabEl) {
+  currentOrderFilter = filter;
+  document.querySelectorAll('.tabs .tab').forEach(t => t.classList.remove('active'));
+  if(tabEl) tabEl.classList.add('active');
+  renderOrdersTable(filter);
+}
+
+function searchOrders(v) { renderOrdersTable(currentOrderFilter, v.toLowerCase()); }
+
+function viewOrder(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  currentEditingOrderId = id;
+  document.getElementById('modalOrderTitle').textContent = 'Order ' + id;
+  document.getElementById('modalStatusSel').value = o.status;
+  const steps = ['pending','processing','shipped','delivered'];
+  const ci = steps.indexOf(o.status);
+  document.getElementById('modalOrderBody').innerHTML = `
+    <div style="background:var(--panel);border-radius:8px;padding:16px;margin-bottom:18px;">
+      <div class="status-flow">
+        ${steps.map((s,i) => `
+          ${i>0?`<div class="status-line ${i<=ci?'done':''}"></div>`:''}
+          <div class="status-step">
+            <div class="status-dot ${i<ci?'done':i===ci?'active':''}">${i<ci?'✓':i+1}</div>
+            <div class="status-label">${s.charAt(0).toUpperCase()+s.slice(1)}</div>
+          </div>`).join('')}
+      </div>
+    </div>
+    <div class="form-grid" style="gap:12px;margin-bottom:16px;">
+      <div><div class="form-label" style="margin-bottom:4px;">Customer</div><div style="font-size:14px;font-weight:500;color:var(--text);">${o.customer}</div></div>
+      <div><div class="form-label" style="margin-bottom:4px;">Phone</div><div style="font-size:14px;color:var(--text);">${o.phone}</div></div>
+      <div><div class="form-label" style="margin-bottom:4px;">City</div><div style="font-size:14px;color:var(--text);">${o.city}</div></div>
+      <div><div class="form-label" style="margin-bottom:4px;">Payment</div><div style="font-size:14px;color:var(--text);">${o.payment}</div></div>
+    </div>
+    <div style="background:var(--panel);border-radius:6px;padding:14px;margin-bottom:14px;">
+      <div class="form-label" style="margin-bottom:8px;">Items</div>
+      <div style="font-size:13px;color:var(--text);">${o.items}</div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);">
+      <span style="font-size:13px;color:var(--text-muted);">Order Total</span>
+      <span style="font-family:var(--font-display);font-size:22px;color:var(--gold-light);">৳${o.total.toLocaleString()}</span>
+    </div>`;
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function updateOrderStatus() {
+  const o = orders.find(x => x.id === currentEditingOrderId);
+  if (!o) return;
+  o.status = document.getElementById('modalStatusSel').value;
+  closeModal('orderModal');
+  renderOrdersTable(currentOrderFilter);
+  showToast('Order status updated!', 'success');
+}
+
+function exportOrders() {
+  const rows = [['Order #','Customer','Phone','City','Items','Total','Payment','Status','Date']];
+  orders.forEach(o => rows.push([o.id,o.customer,o.phone,o.city,o.items,o.total,o.payment,o.status,o.date]));
+  const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'asha_orders_' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  showToast('Orders exported as CSV!', 'success');
+}
+
+// ══════════════════════════════════════════
+// CATEGORIES
+// ══════════════════════════════════════════
+function renderCatsTable() {
+  document.getElementById('catsTable').innerHTML = Object.entries(CATEGORIES).map(([k,c]) => `
+    <tr>
+      <td style="font-size:24px;">${c.icon}</td>
+      <td><div class="td-name">${c.name}</div></td>
+      <td style="color:var(--gold);">${products.filter(p=>p.cat===k).length}</td>
+      <td><div class="action-btns"><button class="action-btn" onclick="editCat('${k}')">Edit</button></div></td>
+    </tr>`).join('');
+}
+
+function editCat(key) {
+  const c = CATEGORIES[key];
+  document.getElementById('catName').value = c.name;
+  document.getElementById('catIcon').value = c.icon;
+  document.getElementById('catDesc').value = c.desc;
+  showToast('Editing ' + c.name, 'success');
+}
+
+function saveCat() {
+  const name = document.getElementById('catName').value.trim();
+  if (!name) { showToast('Category name required!', 'error'); return; }
+  showToast('Category saved: ' + name, 'success');
+  ['catName','catIcon','catDesc'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ══════════════════════════════════════════
+// CUSTOMERS
+// ══════════════════════════════════════════
+function renderCustomers() {
+  const custs = [
+    {n:'Rafiya Sultana',ph:'+880 1712-345678',city:'Dhaka',orders:4,spent:248000,last:'Apr 14'},
+    {n:'Karim Islam',ph:'+880 1812-987654',city:'Dhaka',orders:2,spent:165000,last:'Apr 15'},
+    {n:'Nadia Ahmed',ph:'+880 1912-111222',city:'Chittagong',orders:1,spent:95000,last:'Apr 16'},
+    {n:'Tariq Hossain',ph:'+880 1611-444555',city:'Dhaka',orders:3,spent:185000,last:'Apr 13'},
+    {n:'Sadia Begum',ph:'+880 1511-667788',city:'Sylhet',orders:1,spent:68000,last:'Apr 12'},
+    {n:'Imran Khan',ph:'+880 1711-223344',city:'Dhaka',orders:2,spent:57500,last:'Apr 16'},
+  ];
+  document.getElementById('customersTable').innerHTML = custs.map((c,i) => `
+    <tr>
+      <td style="color:var(--text-muted);">${String(i+1).padStart(2,'0')}</td>
+      <td><div class="td-name">${c.n}</div></td>
+      <td><div class="td-sub">${c.ph}</div></td>
+      <td><div class="td-sub">${c.city}</div></td>
+      <td style="color:var(--gold);">${c.orders}</td>
+      <td class="td-price">৳${c.spent.toLocaleString()}</td>
+      <td style="color:var(--text-muted);font-size:12px;">${c.last}</td>
+    </tr>`).join('');
+}
+
+// ══════════════════════════════════════════
+// ANALYTICS
+// ══════════════════════════════════════════
+function renderAnalytics() {
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const vals = [52,68,74,84,0,0,0,0,0,0,0,0];
+  const max = Math.max(...vals.filter(v=>v>0));
+  document.getElementById('monthlyChart').innerHTML = `<div class="chart-wrap">${months.map((m,i) => `
+    <div class="chart-bar-wrap">
+      <div class="chart-bar" style="height:${vals[i]?Math.round((vals[i]/max)*110):4}px;${!vals[i]?'background:var(--border);':''}" title="${m}: ৳${vals[i]}L"></div>
+      <div class="chart-label">${m}</div>
+    </div>`).join('')}</div>`;
+
+  const cats = [
+    {name:'Living',pct:38,color:'#C8922A'},
+    {name:'Bedroom',pct:24,color:'#8B5E3C'},
+    {name:'Dining',pct:18,color:'#C4956A'},
+    {name:'Office',pct:12,color:'#5C3D22'},
+    {name:'Other',pct:8,color:'#3D2510'},
+  ];
+  document.getElementById('catBreakdown').innerHTML = cats.map(c => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <div style="width:8px;height:8px;border-radius:50%;background:${c.color};flex-shrink:0;"></div>
+      <div style="flex:1;font-size:13px;color:var(--text);">${c.name}</div>
+      <div style="width:120px;height:6px;background:var(--panel);border-radius:3px;"><div style="height:100%;width:${c.pct}%;background:${c.color};border-radius:3px;"></div></div>
+      <div style="font-size:12px;color:var(--gold);min-width:30px;text-align:right;">${c.pct}%</div>
+    </div>`).join('');
+}
+
+// ══════════════════════════════════════════
+// PROMOTIONS
+// ══════════════════════════════════════════
+function renderPromos() {
+  document.getElementById('promosTable').innerHTML = promos.map(p => `
+    <tr>
+      <td><span style="font-family:monospace;font-weight:600;color:var(--gold-light);">${p.code}</span></td>
+      <td style="font-size:12px;color:var(--text-muted);">${p.type}</td>
+      <td style="color:var(--text);">${p.value}</td>
+      <td style="color:var(--text-muted);font-size:12px;">${p.usage}</td>
+      <td style="font-size:12px;color:var(--text-muted);">${p.expires}</td>
+      <td><span class="badge ${p.status==='active'?'badge-active':'badge-draft'}">${p.status}</span></td>
+      <td><div class="action-btns"><button class="action-btn danger" onclick="deletePromo('${p.code}')">✕ Delete</button></div></td>
+    </tr>`).join('');
+}
+
+function savePromo() {
+  const code = document.getElementById('promoCode').value.trim().toUpperCase();
+  if (!code) { showToast('Promo code required!', 'error'); return; }
+  promos.push({
+    code,
+    type: document.getElementById('promoType').value,
+    value: document.getElementById('promoValue').value || '—',
+    usage: '0/∞',
+    expires: document.getElementById('promoExpiry').value || 'No expiry',
+    status: 'active'
+  });
+  renderPromos();
+  showToast('Promotion "' + code + '" created!', 'success');
+  ['promoCode','promoValue','promoExpiry'].forEach(id => document.getElementById(id).value = '');
+}
+
+function deletePromo(code) {
+  promos = promos.filter(p => p.code !== code);
+  renderPromos();
+  showToast('Promo deleted.', 'error');
+}
+
+// ══════════════════════════════════════════
+// SETTINGS TABS
+// ══════════════════════════════════════════
+function switchSettingsTab(tab, el) {
+  ['general','store','delivery','integrations'].forEach(t => {
+    document.getElementById('settings-'+t)?.classList.add('hidden');
+  });
+  document.getElementById('settings-'+tab)?.classList.remove('hidden');
+  document.querySelectorAll('.settings-nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+// ══════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+document.querySelectorAll('.modal-backdrop').forEach(m => {
+  m.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
+});
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+function showToast(msg, type='success') {
+  const icons = {success:'✓',error:'✕',info:'ℹ'};
+  const t = document.createElement('div');
+  t.className = `toast ${type}`;
+  t.innerHTML = `<span style="color:${type==='success'?'#5DC98A':type==='error'?'#E74C3C':'var(--gold)'};">${icons[type]||'✓'}</span>${msg}`;
+  document.getElementById('toastContainer').appendChild(t);
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3000);
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+renderDashboard();
+initCatFilter();
+document.getElementById('ordersBadge').textContent = orders.filter(o => o.status === 'pending').length;
+</script>
+</body>
+</html>
